@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="507.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chat.FXMLDocumentController">
+    <children>
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <SplitPane dividerPositions="0.2836676217765043" prefHeight="200.0" prefWidth="320.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <SplitPane dividerPositions="0.8250497017892644" layoutX="14.0" layoutY="313.0" orientation="VERTICAL" prefHeight="505.0" prefWidth="195.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <SplitPane dividerPositions="0.6487804878048781" layoutX="17.0" layoutY="161.0" orientation="VERTICAL" prefHeight="412.0" prefWidth="193.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="279.0" prefWidth="216.0">
+                                       <children>
+                                          <TitledPane animated="false" layoutX="1.0" layoutY="2.0" prefHeight="263.0" prefWidth="191.0" text="Salas de Bate Papo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <RadioButton layoutX="14.0" layoutY="29.0" mnemonicParsing="false" text="INF" />
+                                                      <RadioButton layoutX="14.0" layoutY="70.0" mnemonicParsing="false" text="REDES" />
+                                                      <RadioButton layoutX="14.0" layoutY="119.0" mnemonicParsing="false" text="ALP" />
+                                                      <Button id="new" layoutX="48.0" layoutY="198.0" mnemonicParsing="false" text="Criar nova sala" />
+                                                   </children>
+                                                </AnchorPane>
+                                            </content>
+                                          </TitledPane>
+                                       </children>
+                                    </AnchorPane>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                       <children>
+                                          <TitledPane animated="false" layoutY="-8.0" prefHeight="141.0" prefWidth="191.0" text="Usuários" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <RadioButton layoutX="8.0" layoutY="14.0" mnemonicParsing="false" text="Isabela" />
+                                                      <RadioButton layoutX="8.0" layoutY="41.0" mnemonicParsing="false" text="Gabriel" />
+                                                      <RadioButton layoutX="8.0" layoutY="70.0" mnemonicParsing="false" text="Marcelo" />
+                                                   </children>
+                                                </AnchorPane>
+                                            </content>
+                                          </TitledPane>
+                                       </children>
+                                    </AnchorPane>
+                                </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <RadioButton id="private" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Privado" textFill="#5e0303" />
+                              <RadioButton id="public" layoutX="14.0" layoutY="43.0" mnemonicParsing="false" text="Público" textFill="#24037c" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="528.0" prefWidth="519.0">
+               <children>
+                  <SplitPane dividerPositions="0.8250497017892644" orientation="VERTICAL" prefHeight="505.0" prefWidth="497.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <items>
+                      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="429.0" prefWidth="512.0">
+                           <children>
+                              <TitledPane animated="false" layoutY="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="412.0" prefWidth="495.0" text="Conversas" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TextArea id="msg" layoutX="71.0" layoutY="38.0" prefHeight="386.0" prefWidth="493.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </TitledPane>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="103.0" prefWidth="533.0">
+                           <children>
+                              <Button layoutX="411.0" layoutY="30.0" mnemonicParsing="false" text="Enviar" AnchorPane.rightAnchor="36.0" />
+                              <TextArea id="mensagem" layoutX="14.0" layoutY="9.0" prefHeight="68.0" prefWidth="375.0" promptText="Digite sua Mensagem" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="106.0" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+    </children>
+</AnchorPane>
