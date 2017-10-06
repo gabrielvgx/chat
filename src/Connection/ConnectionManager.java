@@ -1,6 +1,5 @@
-package chat.Connection;
+package Connection;
 
-import chat.Connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
 

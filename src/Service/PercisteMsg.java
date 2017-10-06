@@ -1,9 +1,9 @@
-package chat.Service;
+package Service;
 
-import chat.DAO.MensagemDAO;
+import DAO.MensagemDAO;
 import chat.Domain.ExcessoesPercistencia;
 import chat.Domain.Mensagem;
-
+import chat.Service.IPercisteMsg;
 /**
  *
  * @author bella

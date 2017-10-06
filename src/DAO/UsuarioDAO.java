@@ -1,13 +1,12 @@
-package chat.DAO;
+package DAO;
 
+import Connection.ConnectionManager;
+import chat.DAO.IUsuarioDAO;
 import chat.Domain.ExcessoesPercistencia;
 import chat.Domain.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import chat.Connection.ConnectionManager;
-import java.util.ArrayList;
-
 /**
  * @author bella
  */

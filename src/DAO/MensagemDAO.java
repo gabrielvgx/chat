@@ -1,15 +1,14 @@
-package chat.DAO;
+package DAO;
 
-import chat.Connection.ConnectionManager;
+import Connection.ConnectionManager;
+import chat.DAO.IMensagemDAO;
 import chat.Domain.ExcessoesPercistencia;
 import chat.Domain.Mensagem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.Locale;
-
 /**
  *
  * @author bella
