@@ -39,12 +39,15 @@
                                     </AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                        <children>
-                                          <RadioButton layoutX="10.0" layoutY="36.0" mnemonicParsing="false" text="Maffor" />
-                                          <RadioButton layoutX="10.0" layoutY="62.0" mnemonicParsing="false" text="Vivas" />
-                                          <RadioButton layoutX="10.0" layoutY="88.0" mnemonicParsing="false" text="José Wilson" />
-                                          <TitledPane animated="false" layoutX="-5.0" layoutY="7.0" prefHeight="25.0" prefWidth="191.0" text="Usuarios" AnchorPane.bottomAnchor="116.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <TitledPane animated="false" layoutY="-8.0" prefHeight="141.0" prefWidth="191.0" text="Usuários" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <content>
-                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <RadioButton layoutX="8.0" layoutY="14.0" mnemonicParsing="false" text="Isabela" />
+                                                      <RadioButton layoutX="8.0" layoutY="41.0" mnemonicParsing="false" text="Gabriel" />
+                                                      <RadioButton layoutX="8.0" layoutY="70.0" mnemonicParsing="false" text="Marcelo" />
+                                                   </children>
+                                                </AnchorPane>
                                             </content>
                                           </TitledPane>
                                        </children>
