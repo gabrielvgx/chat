@@ -1,4 +1,4 @@
-package chat.Domain;
+package Domain;
 
 /**
  *
@@ -7,15 +7,25 @@ package chat.Domain;
 public class Mensagem {
     
     private String txtMensagem;
-    private String usuário;
+    private String usuario;
     private String dataTime;
+    private String id_sala;
 
     public Mensagem(){}
     
-    public Mensagem(String txtMensagem, String usuário) {
+    public Mensagem(String txtMensagem, String usuario, String id_sala) {
         this.txtMensagem = txtMensagem;
-        this.usuário = usuário;
-        this.dataTime = dataTime;
+        this.usuario = usuario;
+        this.id_sala = id_sala;
+        
+    }
+
+    public String getId_sala() {
+        return id_sala;
+    }
+
+    public void setId_sala(String id_sala) {
+        this.id_sala = id_sala;
     }
 
     public String getTxtMensagem() {
@@ -26,12 +36,12 @@ public class Mensagem {
         this.txtMensagem = txtMensagem;
     }
 
-    public String getUsuário() {
-        return usuário;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setUsuário(String usuário) {
-        this.usuário = usuário;
+    public void setUsuario(String usuário) {
+        this.usuario = usuário;
     }
 
     public String getDataTime() {

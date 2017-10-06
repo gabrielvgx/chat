@@ -1,7 +1,8 @@
-package chat.DAO;
+package DAO;
 
 import chat.Domain.ExcessoesPercistencia;
-import chat.Domain.Mensagem;
+import Domain.Mensagem;
+import java.util.ArrayList;
 
 /**
  *
@@ -9,4 +10,5 @@ import chat.Domain.Mensagem;
  */
 public interface IMensagemDAO {
     public boolean Envia_Msg(Mensagem mensagem) throws ExcessoesPercistencia;
+    public ArrayList<Mensagem> Mostra_Msg(String id_sala) throws ExcessoesPercistencia;
 }
