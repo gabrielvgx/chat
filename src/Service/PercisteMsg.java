@@ -3,7 +3,7 @@ package Service;
 import DAO.MensagemDAO;
 import chat.Domain.ExcessoesPercistencia;
 import Domain.Mensagem;
-import chat.Service.IPercisteMsg;
+import Service.IPercisteMsg;
 import java.util.ArrayList;
 /**
  *
