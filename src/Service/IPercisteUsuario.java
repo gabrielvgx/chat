@@ -11,4 +11,5 @@ public interface IPercisteUsuario {
     public String cadastrar(Usuario usuario) throws ExcessoesPercistencia;
     public boolean excluir(String usuario) throws ExcessoesPercistencia;
     public Usuario getUserLogin(String nome, String senha) throws ExcessoesPercistencia;
+    public Usuario getUserLogin(String nome) throws ExcessoesPercistencia;
 }
