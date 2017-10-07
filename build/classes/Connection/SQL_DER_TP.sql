@@ -10,7 +10,9 @@ CREATE TABLE IF NOT EXISTS mensagem (
   `id_msg` INTEGER PRIMARY KEY AUTO_INCREMENT,
   `usuario` VARCHAR(30) NOT NULL,
   `txt_msg` VARCHAR(100) NOT NULL,
-  `datatime`  VARCHAR(15) NOT NULL
+  `datatime`  VARCHAR(15) NOT NULL,
+  `id_sala`  VARCHAR(15) NOT NULL
+ 
 );
 
 -- ALTER TABLE `mensagem` ADD  PRIMARY KEY (`id_msg`);

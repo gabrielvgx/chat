@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="chatLogin.FXMLLoginController">
+   <children>
+      <ToolBar layoutY="6.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="565.0" style="-fx-background-color: #008B8B;" AnchorPane.bottomAnchor="346.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <children>
+            <Text fill="#fffefe" layoutX="10.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stênio Garcia" wrappingWidth="180.0869140625">
+               <font>
+                  <Font name="Lucida Calligraphy Italic" size="25.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <TextArea id="username" layoutY="189.0" prefHeight="48.0" prefWidth="593.0" promptText="Nome de Usuario" style="-fx-border-color: #00FA9A;" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="189.0" />
+      <Text layoutX="239.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro">
+         <font>
+            <Font name="Lucida Calligraphy Italic" size="26.0" />
+         </font>
+      </Text>
+      <Button layoutX="239.0" layoutY="275.0" mnemonicParsing="false" prefHeight="6.0" prefWidth="123.0" style="-fx-background-color: #008B8B; -fx-background-radius: 900;" text="Entrar" textFill="WHITE" AnchorPane.rightAnchor="238.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
