@@ -49,9 +49,10 @@ public class FXMLLoginController implements Initializable {
                 AnchorPane novaTela = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
                 painelPrincipal.getChildren().add(novaTela);
                 AnchorPane teste = (AnchorPane)novaTela.getChildren().get(0);
-                System.out.println("teste"+teste.getChildren().size());
+                System.out.println("teste"+teste.getChildren().get(0));
+                System.out.println("teste"+teste.getChildren().get(1));
                 SplitPane panel = (SplitPane)(((AnchorPane)teste.getChildren().get(0)).getChildren().get(0));
-                
+                System.out.println("oii__"+((SplitPane)(((AnchorPane)panel.getItems().get(0)).getChildren().get(0))));
             }
         } catch (Exception ex) {
             System.out.println(ex.toString());

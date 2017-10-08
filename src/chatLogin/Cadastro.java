@@ -20,7 +20,7 @@ public class Cadastro extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
             
             Scene scene = new Scene(root);
-            
+          
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException ex) {
