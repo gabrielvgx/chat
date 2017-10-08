@@ -8,8 +8,11 @@ package chatLogin;
 import Domain.ExcessoesPercistencia;
 import Domain.Usuario;
 import Service.PercisteUsuario;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,28 +52,31 @@ public class FXMLLoginController implements Initializable {
                 AnchorPane novaTela = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
                 painelPrincipal.getChildren().add(novaTela);
                 AnchorPane teste = (AnchorPane)novaTela.getChildren().get(0);
-                System.out.println("teste"+teste.getChildren().get(0));
-                System.out.println("teste"+teste.getChildren().get(1));
-                
                 
                 Label criarSala = ((Label)(((AnchorPane)(teste.getChildren().get(1))).getChildren().get(3)));
-                 criarSala.setOnMouseClicked(((event) -> {
-                     System.out.println("OLA funfou");
-                 }));
-                System.out.println("Label criar sala");
+                criarSala.setOnMouseClicked(((event) -> {
+                    try {
+                        painelPrincipal.getChildren().clear();
+                        AnchorPane novaSala = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLNovaSala.fxml"));
+                        painelPrincipal.getChildren().add(novaSala);
+                    } catch (IOException ex) {
+                        Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                }));
+                
                 
                 
                 SplitPane panel = (SplitPane)(((AnchorPane)teste.getChildren().get(0)).getChildren().get(0));
-                
-                System.out.println("oii__"+((AnchorPane)((SplitPane)(((AnchorPane)((SplitPane)(((AnchorPane)panel.getItems().get(0))
-                        .getChildren().get(0))).getItems().get(0)).getChildren().get(0))).getItems().get(0)).getChildren());
+                /*
+                System.out.println("oii__"+((TitledPane)(((AnchorPane)((SplitPane)(((AnchorPane)((SplitPane)(((AnchorPane)panel.getItems().get(0))
+                        .getChildren().get(0))).getItems().get(0)).getChildren().get(0))).getItems().get(0)).getChildren().get(0))).get);*/
             }
         } catch (Exception ex) {
             System.out.println(ex.toString());
             System.out.println("fudeu");
         }
     }
-
     private boolean validaLogin() {
         try {
             PercisteUsuario bdUsuario = new PercisteUsuario();
