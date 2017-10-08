@@ -11,8 +11,6 @@ import Service.PercisteUsuario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -38,6 +37,7 @@ public class FXMLLoginController implements Initializable {
     AnchorPane painelPrincipal;
     @FXML
     Label erroLogar;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         nomeUsuario.setFocusTraversable(false);
@@ -48,26 +48,44 @@ public class FXMLLoginController implements Initializable {
         try {
             if (validaLogin()) {
                 painelPrincipal.getChildren().clear();
-                
+
                 AnchorPane novaTela = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
                 painelPrincipal.getChildren().add(novaTela);
-                AnchorPane teste = (AnchorPane)novaTela.getChildren().get(0);
-                
-                Label criarSala = ((Label)(((AnchorPane)(teste.getChildren().get(1))).getChildren().get(3)));
+                AnchorPane teste = (AnchorPane) novaTela.getChildren().get(0);
+
+                Label criarSala = ((Label) (((AnchorPane) (teste.getChildren().get(1))).getChildren().get(3)));
                 criarSala.setOnMouseClicked(((event) -> {
                     try {
                         painelPrincipal.getChildren().clear();
                         AnchorPane novaSala = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLNovaSala.fxml"));
                         painelPrincipal.getChildren().add(novaSala);
+                        AnchorPane a = (AnchorPane) painelPrincipal.getChildren().get(0);
+                        Button adicionar = (Button) a.getChildren().get(0);
+                        System.out.println("OK_"+a.getChildren());
+                        adicionar.setOnMouseClicked(((MouseEvent -> {
+                            String nomeSala = ((TextArea) novaSala.getChildren().get(2)).getText();
+                            if (nomeSala.length() > 15) {
+                                Label notificar = ((Label) a.getChildren().get(3));
+                                notificar.setText("Máximo de 15 caracteres");
+                            } else {
+                                painelPrincipal.getChildren().clear();
+                                painelPrincipal.getChildren().add(novaTela);
+                                Text titulo = (Text) (((AnchorPane) (((AnchorPane) novaTela.getChildren().get(0)).getChildren().get(1))).getChildren().get(1));
+                                titulo.setText(nomeSala);
+                                if (nomeSala.length() > 10) {
+                                    titulo.setStyle("-fx-font-size: 16");
+                                }
+                            }
+                        })));
+
+                        System.out.println(a.getChildren());
                     } catch (IOException ex) {
-                        Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+                        System.out.println(ex.getMessage());
                     }
-                    
+
                 }));
-                
-                
-                
-                SplitPane panel = (SplitPane)(((AnchorPane)teste.getChildren().get(0)).getChildren().get(0));
+
+                SplitPane panel = (SplitPane) (((AnchorPane) teste.getChildren().get(0)).getChildren().get(0));
                 /*
                 System.out.println("oii__"+((TitledPane)(((AnchorPane)((SplitPane)(((AnchorPane)((SplitPane)(((AnchorPane)panel.getItems().get(0))
                         .getChildren().get(0))).getItems().get(0)).getChildren().get(0))).getItems().get(0)).getChildren().get(0))).get);*/
@@ -77,6 +95,7 @@ public class FXMLLoginController implements Initializable {
             System.out.println("fudeu");
         }
     }
+
     private boolean validaLogin() {
         try {
             PercisteUsuario bdUsuario = new PercisteUsuario();

@@ -16,6 +16,7 @@
          </font></Button>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <TextArea layoutX="85.0" layoutY="242.0" prefHeight="60.0" prefWidth="531.0" promptText="Nome da Sala" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="242.0" />
+      <Label layoutX="390.0" layoutY="302.0" prefHeight="25.0" prefWidth="178.0" textFill="RED" />
       <ToolBar layoutX="7.0" layoutY="7.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #008B8B;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sala De Bate Papo" textAlignment="JUSTIFY">

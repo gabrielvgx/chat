@@ -18,7 +18,7 @@ public class Cadastro extends Application {
         
         try {
             Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
-            
+            //Gabriel Victor Guima
             Scene scene = new Scene(root);
           
             primaryStage.setScene(scene);
@@ -28,6 +28,8 @@ public class Cadastro extends Application {
         }
     }
     public static void main(String[] args) {
+        String teste = "Gabriel Victor Guima";
+        System.out.println("length = " + teste.length());
         launch(args);
     }
     
