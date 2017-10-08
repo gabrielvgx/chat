@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 
@@ -49,9 +50,8 @@ public class FXMLLoginController implements Initializable {
                 painelPrincipal.getChildren().add(novaTela);
                 AnchorPane teste = (AnchorPane)novaTela.getChildren().get(0);
                 System.out.println("teste"+teste.getChildren().size());
-                AnchorPane teste2 = (AnchorPane)teste.getChildren().get(0);
-                System.out.println("teste2___"+teste2.getChildren().get(4));
-                System.out.println("ss"+((AnchorPane)teste.getChildren().get(0)).getChildren().get(0));
+                SplitPane panel = (SplitPane)(((AnchorPane)teste.getChildren().get(0)).getChildren().get(0));
+                
             }
         } catch (Exception ex) {
             System.out.println(ex.toString());
