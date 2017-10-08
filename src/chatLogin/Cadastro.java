@@ -14,14 +14,18 @@ import javafx.stage.Stage;
 public class Cadastro extends Application {
     
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
         
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
-        
-        Scene scene = new Scene(root);
-        
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
+            
+            Scene scene = new Scene(root);
+            
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     public static void main(String[] args) {
         launch(args);
