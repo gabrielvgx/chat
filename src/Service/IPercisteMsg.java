@@ -1,6 +1,6 @@
 package Service;
 
-import chat.Domain.ExcessoesPercistencia;
+import Domain.ExcessoesPercistencia;
 import Domain.Mensagem;
 import java.util.ArrayList;
 

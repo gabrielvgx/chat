@@ -1,7 +1,7 @@
-package chat.DAO;
+package DAO;
 
-import chat.Domain.Usuario;
-import chat.Domain.ExcessoesPercistencia;
+import Domain.ExcessoesPercistencia;
+import Domain.Usuario;
 
 /**
  * @author bella

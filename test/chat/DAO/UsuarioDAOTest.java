@@ -1,7 +1,7 @@
 package chat.DAO;
 
 import DAO.UsuarioDAO;
-import chat.Domain.Usuario;
+import Domain.Usuario;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;

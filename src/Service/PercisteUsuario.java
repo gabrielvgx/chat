@@ -1,9 +1,8 @@
 package Service;
 
 import DAO.UsuarioDAO;
-import chat.Domain.ExcessoesPercistencia;
-import chat.Domain.Usuario;
-import chat.Service.IPercisteUsuario;
+import Domain.ExcessoesPercistencia;
+import Domain.Usuario;
 /**
  *
  * @author bella

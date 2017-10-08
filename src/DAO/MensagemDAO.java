@@ -1,8 +1,7 @@
 package DAO;
 
 import Connection.ConnectionManager;
-import DAO.IMensagemDAO;
-import chat.Domain.ExcessoesPercistencia;
+import Domain.ExcessoesPercistencia;
 import Domain.Mensagem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

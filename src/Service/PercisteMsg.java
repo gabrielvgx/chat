@@ -1,8 +1,8 @@
 package Service;
 
 import DAO.MensagemDAO;
+import Domain.ExcessoesPercistencia;
 import Domain.Mensagem;
-import chat.Domain.ExcessoesPercistencia;
 import java.util.ArrayList;
 /**
  *

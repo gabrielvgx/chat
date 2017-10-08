@@ -1,4 +1,4 @@
-package chat.Domain;
+package Domain;
 
 /**
  * @author bella

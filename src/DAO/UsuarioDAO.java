@@ -1,9 +1,8 @@
 package DAO;
 
 import Connection.ConnectionManager;
-import chat.DAO.IUsuarioDAO;
-import chat.Domain.ExcessoesPercistencia;
-import chat.Domain.Usuario;
+import Domain.ExcessoesPercistencia;
+import Domain.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

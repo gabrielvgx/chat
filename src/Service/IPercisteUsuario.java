@@ -1,7 +1,7 @@
-package chat.Service;
+package Service;
 
-import chat.Domain.ExcessoesPercistencia;
-import chat.Domain.Usuario;
+import Domain.ExcessoesPercistencia;
+import Domain.Usuario;
 
 /**
  *
