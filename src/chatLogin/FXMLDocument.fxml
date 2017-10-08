@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="603.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+      <AnchorPane prefHeight="603.0" prefWidth="655.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="61.0" prefWidth="655.0" AnchorPane.bottomAnchor="542.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label prefHeight="61.0" prefWidth="655.0" style="-fx-background-color: #008B8B;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Text fill="#fcf8f8" layoutX="29.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stênio Garcia" textAlignment="CENTER" wrappingWidth="191.99999910593033">
+                     <font>
+                        <Font name="Lucida Calligraphy Italic" size="26.0" />
+                     </font>
+                  </Text>
+                  <Label alignment="CENTER" contentDisplay="TOP" layoutX="732.0" layoutY="16.0" prefHeight="32.0" prefWidth="54.0" style="-fx-background-color: #008B8B;" text="SAIR" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="16.0">
+                     <font>
+                        <Font name="Tahoma" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="496.0" layoutY="17.0" prefHeight="30.0" prefWidth="91.0" style="-fx-background-color: #008B8B;" text="CRIAR SALA" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="68.0" AnchorPane.topAnchor="17.0">
+                     <font>
+                        <Font name="Tahoma" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="47.0" prefHeight="556.0" prefWidth="655.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="47.0">
+         <children>
+            <SplitPane dividerPositions="0.327718223583461" layoutY="8.0" prefHeight="542.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
+              <items>
+                <AnchorPane fx:id="painelSplitEsquerdo" maxWidth="250.0" minHeight="0.0" minWidth="200.0" prefHeight="160.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
+                     <children>
+                        <SplitPane dividerPositions="0.8513011152416357" layoutX="14.0" layoutY="313.0" orientation="VERTICAL" prefHeight="539.0" prefWidth="211.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="382.0" prefWidth="209.0">
+                                 <children>
+                                    <SplitPane dividerPositions="0.5298969072164949" layoutX="17.0" layoutY="161.0" orientation="VERTICAL" prefHeight="485.0" prefWidth="209.0" AnchorPane.bottomAnchor="-25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="279.0" prefWidth="216.0">
+                                             <children>
+                                                <TitledPane alignment="CENTER" animated="false" collapsible="false" layoutX="1.0" layoutY="2.0" prefHeight="271.0" prefWidth="261.0" text="BATE PAPO" AnchorPane.bottomAnchor="-25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <content>
+                                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="256.0">
+                                                         <children>
+                                                            <ScrollPane layoutX="21.7" prefHeight="248.0" prefWidth="192.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
+                                                              <content>
+                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="247.0" prefWidth="199.0">
+                                                                     <children>
+                                                                        <ListView fx:id="contatosOnline" prefHeight="224.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0" />
+                                                                     </children></AnchorPane>
+                                                              </content>
+                                                            </ScrollPane>
+                                                         </children>
+                                                      </AnchorPane>
+                                                  </content>
+                                                   <font>
+                                                      <Font name="Tahoma Bold" size="12.0" />
+                                                   </font>
+                                                </TitledPane>
+                                             </children>
+                                          </AnchorPane>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="100.0">
+                                             <children>
+                                                <TitledPane alignment="CENTER" animated="false" collapsible="false" layoutY="6.0" prefHeight="203.0" prefWidth="207.0" text="PARTICIPANTES" textAlignment="CENTER" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+                                                   <font>
+                                                      <Font name="Tahoma Bold" size="12.0" />
+                                                   </font>
+                                                   <content>
+                                                      <ScrollPane minHeight="0.0" minWidth="0.0" prefHeight="214.0" prefWidth="205.0">
+                                                        <content>
+                                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="179.0" prefWidth="211.0" />
+                                                        </content>
+                                                      </ScrollPane>
+                                                   </content></TitledPane>
+                                             </children>
+                                          </AnchorPane>
+                                      </items>
+                                    </SplitPane>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="62.0" prefWidth="209.0">
+                                 <children>
+                                    <RadioButton id="private" layoutX="37.0" layoutY="8.0" mnemonicParsing="false" text="Privado" textFill="#5e0303">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="RadioPrivadoPublico" />
+                                       </toggleGroup></RadioButton>
+                                    <RadioButton id="public" layoutX="37.0" layoutY="38.0" mnemonicParsing="false" text="Público" textFill="#24037c" toggleGroup="$RadioPrivadoPublico" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="528.0" prefWidth="556.0">
+                     <children>
+                        <SplitPane dividerPositions="0.8498168498168498" layoutX="-7.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="548.0" prefWidth="443.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-7.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+                          <items>
+                            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="429.0" prefWidth="512.0">
+                                 <children>
+                                    <TitledPane alignment="CENTER" animated="false" layoutY="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="412.0" prefWidth="495.0" text="CONVERSAS" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="493.0">
+                                             <children>
+                                                <ScrollBar layoutX="425.0" min="10.0" orientation="VERTICAL" prefHeight="385.0" prefWidth="17.0" AnchorPane.bottomAnchor="-11.0" AnchorPane.rightAnchor="-5.0" AnchorPane.topAnchor="-9.0" />
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                       <font>
+                                          <Font name="Tahoma Bold" size="12.0" />
+                                       </font>
+                                    </TitledPane>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="79.0" prefWidth="433.0">
+                                 <children>
+                                    <Button layoutX="381.0" layoutY="24.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" style="-fx-background-color: #008B8B; -fx-background-radius: 40px;" text="ENVIAR" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="7.0">
+                                       <font>
+                                          <Font name="Arial Black" size="12.0" />
+                                       </font>
+                                    </Button>
+                                    <TextArea id="mensagem" layoutX="37.0" layoutY="9.0" prefHeight="61.0" prefWidth="336.0" promptText="Digite sua Mensagem" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="83.0" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </AnchorPane>
+    </children>
+</AnchorPane>

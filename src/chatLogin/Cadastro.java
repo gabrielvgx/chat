@@ -16,7 +16,7 @@ public class Cadastro extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         
-               Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
         
         Scene scene = new Scene(root);
         
