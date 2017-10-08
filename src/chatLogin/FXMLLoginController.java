@@ -51,8 +51,19 @@ public class FXMLLoginController implements Initializable {
                 AnchorPane teste = (AnchorPane)novaTela.getChildren().get(0);
                 System.out.println("teste"+teste.getChildren().get(0));
                 System.out.println("teste"+teste.getChildren().get(1));
+                
+                
+                Label criarSala = ((Label)(((AnchorPane)(teste.getChildren().get(1))).getChildren().get(3)));
+                 criarSala.setOnMouseClicked(((event) -> {
+                     System.out.println("OLA funfou");
+                 }));
+                System.out.println("Label criar sala");
+                
+                
                 SplitPane panel = (SplitPane)(((AnchorPane)teste.getChildren().get(0)).getChildren().get(0));
-                System.out.println("oii__"+((SplitPane)(((AnchorPane)panel.getItems().get(0)).getChildren().get(0))));
+                
+                System.out.println("oii__"+((AnchorPane)((SplitPane)(((AnchorPane)((SplitPane)(((AnchorPane)panel.getItems().get(0))
+                        .getChildren().get(0))).getItems().get(0)).getChildren().get(0))).getItems().get(0)).getChildren());
             }
         } catch (Exception ex) {
             System.out.println(ex.toString());
