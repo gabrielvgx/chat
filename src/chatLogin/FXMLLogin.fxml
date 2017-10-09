@@ -31,6 +31,6 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Label fx:id="erroLogar" alignment="CENTER" contentDisplay="CENTER" layoutX="172.0" layoutY="336.0" prefHeight="17.0" prefWidth="280.0" textFill="RED" />
+      <Label fx:id="erroLogar" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="335.0" layoutY="360.0" prefHeight="17.0" prefWidth="280.0" textFill="RED" />
    </children>
 </AnchorPane>

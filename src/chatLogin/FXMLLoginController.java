@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package chatLogin;
 
 import Domain.ExcecaoPersistencia;
@@ -63,10 +58,10 @@ public class FXMLLoginController implements Initializable {
         File a = new File("icon.png");
         String path = "";
         path = a.getAbsolutePath().replace('\\', '/');
-        
+
         String[] aux = path.split("/");
         path = "";
-        for (int i = 0; i < aux.length-1; i++) {
+        for (int i = 0; i < aux.length - 1; i++) {
             path += aux[i] + "/";
         }
         try {
@@ -88,6 +83,7 @@ public class FXMLLoginController implements Initializable {
     protected void fazerLogin(ActionEvent e) {
         try {
             if (validaLogin()) {
+                System.out.println("DEU RUIM");
                 login = ((TextArea) painelPrincipal.getChildren().get(2)).getText();
                 painelPrincipal.getChildren().clear();
 
@@ -98,7 +94,7 @@ public class FXMLLoginController implements Initializable {
                 Label criarSala = ((Label) (((AnchorPane) (teste.getChildren().get(1))).getChildren().get(3)));
                 Label sair = ((Label) (((AnchorPane) (teste.getChildren().get(1))).getChildren().get(2)));
                 sair.setOnMouseClicked(((event -> {
-                    gerarNotificacao("Obrigado por usar nosso Software", "Volte Sempre!");
+                    gerarNotificacao("Obrigado por usar nosso Software", "Volte Sempre, " + login + "!");
                     System.exit(0);
                 })));
                 criarSala.setOnMouseClicked(((event) -> {
@@ -161,6 +157,8 @@ public class FXMLLoginController implements Initializable {
                     painelSalas.setPrefHeight(y);
                 }
 
+            } else {
+                erroLogar.setText("Essa id ja esta em uso!");
             }
         } catch (Exception ex) {
             System.out.println(ex.toString());
@@ -172,14 +170,11 @@ public class FXMLLoginController implements Initializable {
             PersisteUsuario bdUsuario = new PersisteUsuario();
             Usuario usuario = null;
             usuario = bdUsuario.getUserLogin(nomeUsuario.getText(), null);
-
+         
             if (usuario == null) {
                 bdUsuario.cadastrar(new Usuario(nomeUsuario.getText(), null));
-
                 return true;
             }
-            erroLogar.setText("Essa id ja esta em uso!");
-
             return false;
         } catch (ExcecaoPersistencia ex) {
             System.out.println(ex.getMessage());

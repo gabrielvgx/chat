@@ -20,7 +20,7 @@ public class UsuarioDAO implements IUsuarioDAO {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
             String sqlConfere = "SELECT * FROM usuario";
-            PreparedStatement  pstmtConfere = connection.prepareStatement(sqlConfere);
+            PreparedStatement pstmtConfere = connection.prepareStatement(sqlConfere);
             ResultSet rs = pstmtConfere.executeQuery();
 
             //ArrayList usuarios = new ArrayList();
@@ -86,12 +86,16 @@ public class UsuarioDAO implements IUsuarioDAO {
     public Usuario getUserLogin(String nome, String senha) throws ExcecaoPersistencia {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
-
-            String sql = "SELECT * FROM Usuario WHERE nom_usuario = ? AND senha = ?";
-
+            String sql = "";
+            if (senha == null) {
+                sql = "SELECT * FROM Usuario WHERE nom_usuario LIKE '" + nome + "' AND senha IS NULL";
+            } else {
+                sql = "SELECT * FROM Usuario WHERE nom_usuario LIKE '" + nome + "' AND senha LIKE '"+senha+"'";
+            }
+            System.out.println(sql);
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, nome);
-            pstmt.setString(2, senha);
+            //  pstmt.setString(1, nome);SELECT * FROM `usuario` WHERE `nom_usuario` LIKE 'Rigleia' AND `senha` IS NULL
+            //pstmt.setString(2, senha);
             ResultSet rs = pstmt.executeQuery();
 
             Usuario usuario = null;
@@ -116,7 +120,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public boolean updateUsuario(Usuario usuario){
+    public boolean updateUsuario(Usuario usuario) {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
             String sqlConfere = "UPDATE `chat`.`usuario` SET `proprietarioSala` = ?, `participanteSala` = ? WHERE `usuario`.`nom_usuario` = ?;";
@@ -126,29 +130,30 @@ public class UsuarioDAO implements IUsuarioDAO {
             pstmt.setString(3, usuario.getNomeusuario());
             pstmt.executeUpdate();
             pstmt.close();
-            
+
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
             return false;
         }
         return true;
     }
+
     @Override
     public ArrayList<Usuario> listarUsuario() throws ExcecaoPersistencia {
-            ArrayList<Usuario> result = new ArrayList<>();
+        ArrayList<Usuario> result = new ArrayList<>();
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
-            
+
             String sqlConfere = "SELECT * FROM usuario";
             PreparedStatement pstmtConfere = connection.prepareStatement(sqlConfere);
             ResultSet rs = pstmtConfere.executeQuery();
-            while(rs.next()){
-                result.add(new Usuario(rs.getString("nom_usuario"),rs.getString("senha"),rs.getString("proprietarioSala")));
+            while (rs.next()) {
+                result.add(new Usuario(rs.getString("nom_usuario"), rs.getString("senha"), rs.getString("proprietarioSala")));
             }
             pstmtConfere.close();
             rs.close();
             return result;
-            
+
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
