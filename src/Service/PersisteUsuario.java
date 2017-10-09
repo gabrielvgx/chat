@@ -8,7 +8,7 @@ import java.util.ArrayList;
  *
  * @author bella
  */
-public class PercisteUsuario implements IPercisteUsuario {
+public class PersisteUsuario implements IPersisteUsuario {
 
     @Override
     public String cadastrar(Usuario usuario) throws ExcecaoPersistencia {
@@ -38,4 +38,10 @@ public class PercisteUsuario implements IPercisteUsuario {
         return result;
     }
     
+    @Override
+    public boolean updateUsuario(Usuario usuario) throws ExcecaoPersistencia{
+        UsuarioDAO instance = new UsuarioDAO();
+        boolean result = instance.updateUsuario(usuario);
+        return result;
+    }
 }

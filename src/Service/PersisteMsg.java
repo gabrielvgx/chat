@@ -8,7 +8,7 @@ import java.util.ArrayList;
  *
  * @author bella
  */
-public class PercisteMsg implements IPercisteMsg{
+public class PersisteMsg implements IPersisteMsg{
 
     @Override
     public boolean Envia_Msg(Mensagem mensagem) throws ExcecaoPersistencia {

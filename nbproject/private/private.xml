@@ -3,14 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/Domain/Usuario.java</file>
+            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/chatLogin/FXMLLogin.fxml</file>
+            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/DAO/IUsuarioDAO.java</file>
             <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/Service/IPercisteUsuario.java</file>
-            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/core/Servidor.java</file>
-            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/Service/PercisteUsuario.java</file>
-            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/Service/PercisteMsg.java</file>
+            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/Domain/Mensagem.java</file>
+            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/core/Cliente.java</file>
             <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/core/GerenciadorDeClientes.java</file>
-            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/Connection/SQL_DER_TP.sql</file>
-            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/test/chat/DAO/MensagemDAOTest.java</file>
-            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/test/chat/DAO/UsuarioDAOTest.java</file>
+            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/chatLogin/Cadastro.java</file>
+            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/chatLogin/FXMLNovaSala.fxml</file>
+            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/DAO/MensagemDAO.java</file>
+            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/DAO/UsuarioDAO.java</file>
+            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/core/Comandos.java</file>
+            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/Service/PercisteUsuario.java</file>
+            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/chatLogin/FXMLLoginController.java</file>
+            <file>file:/C:/Users/GVGX_TECNOLOGIA/git-gvgx/chat/src/chatLogin/FXMLDocument.fxml</file>
         </group>
     </open-files>
 </project-private>

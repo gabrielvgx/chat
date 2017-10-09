@@ -115,6 +115,25 @@ public class UsuarioDAO implements IUsuarioDAO {
         }
     }
 
+    @Override
+    public boolean updateUsuario(Usuario usuario){
+        try {
+            Connection connection = ConnectionManager.getInstance().getConnection();
+            String sqlConfere = "UPDATE `chat`.`usuario` SET `proprietarioSala` = ?, `participanteSala` = ? WHERE `usuario`.`nom_usuario` = ?;";
+            PreparedStatement pstmt = connection.prepareStatement(sqlConfere);
+            pstmt.setString(1, usuario.getProprietarioSala());
+            pstmt.setString(2, usuario.getParticipanteSala());
+            pstmt.setString(3, usuario.getNomeusuario());
+            pstmt.executeUpdate();
+            pstmt.close();
+            
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+        return true;
+    }
+    @Override
     public ArrayList<Usuario> listarUsuario() throws ExcecaoPersistencia {
             ArrayList<Usuario> result = new ArrayList<>();
         try {
