@@ -43,7 +43,7 @@ public class UsuarioDAOTest {
             Usuario usuario = new Usuario("Gabrigol", "123456");
             Usuario usuario2 = new Usuario("Lolzinho", "123456");
             UsuarioDAO instance = new UsuarioDAO();
-            String expResult = usuario2.getNomeusuario();
+            String expResult = usuario2.getNomeUsuario();
             String result = instance.cadastrar(usuario2);
             instance.cadastrar(usuario);
             assertEquals(expResult, result);
@@ -79,7 +79,7 @@ public class UsuarioDAOTest {
             UsuarioDAO instance = new UsuarioDAO();
             Usuario expResult = new Usuario("Gabrigol", "123456");
             Usuario result = instance.getUserLogin(nome, senha);
-            assertEquals(expResult.getNomeusuario(), result.getNomeusuario());
+            assertEquals(expResult.getNomeUsuario(), result.getNomeUsuario());
         } catch (Exception e) {
             fail("Não retornou usuario");
         }

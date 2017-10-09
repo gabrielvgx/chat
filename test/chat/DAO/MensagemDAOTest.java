@@ -42,7 +42,7 @@ public class MensagemDAOTest {
     @Test
     public void testEnvia_Msg() throws Exception {
         try {
-            Mensagem mensagem = new Mensagem("Olá amiguinhos!", "Gabrigol", "cefet");
+            Mensagem mensagem = new Mensagem("Olá amiguinhos!", 1, 1);
             MensagemDAO instance = new MensagemDAO();
             boolean expResult = true;
             boolean result = instance.Envia_Msg(mensagem);
@@ -56,12 +56,12 @@ public class MensagemDAOTest {
     public void testMostra_Msg() throws Exception {
         try {
             MensagemDAO instance = new MensagemDAO();
-            ArrayList<Mensagem> result = instance.Mostra_Msg("cefet");
+            ArrayList<Mensagem> result = instance.Mostra_Msg(1);
             for(int i = 0; i<result.size(); i++){
                 System.out.println(result.get(i).getTxtMensagem());
                 System.out.println(result.get(i).getUsuario());
-                System.out.println(result.get(i).getDataTime());
-                System.out.println(result.get(i).getId_sala());
+                System.out.println(result.get(i).getDateTime());
+                System.out.println(result.get(i).getIdSala());
                 System.out.println("\n");
             }
         } catch (Exception e) {

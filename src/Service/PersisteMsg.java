@@ -17,9 +17,9 @@ public class PersisteMsg implements IPersisteMsg{
         return result;
     }
     
-     public ArrayList<Mensagem> Mostra_msg(String id_sala) throws ExcecaoPersistencia{
+     public ArrayList<Mensagem> Mostra_msg(int idSala) throws ExcecaoPersistencia{
          MensagemDAO instace = new MensagemDAO();
-         ArrayList<Mensagem> result = instace.Mostra_Msg(id_sala);
+         ArrayList<Mensagem> result = instace.Mostra_Msg(idSala);
          return result;
      }
     

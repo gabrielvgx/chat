@@ -1,7 +1,9 @@
 package chatLogin;
 
 import Domain.ExcecaoPersistencia;
+import Domain.Sala;
 import Domain.Usuario;
+import Service.PersisteSala;
 import Service.PersisteUsuario;
 import java.awt.AWTException;
 import java.awt.SystemTray;
@@ -83,7 +85,7 @@ public class FXMLLoginController implements Initializable {
     protected void fazerLogin(ActionEvent e) {
         try {
             if (validaLogin()) {
-                System.out.println("DEU RUIM");
+                
                 login = ((TextArea) painelPrincipal.getChildren().get(2)).getText();
                 painelPrincipal.getChildren().clear();
 
@@ -113,11 +115,10 @@ public class FXMLLoginController implements Initializable {
                             } else {
                                 try {
                                     PersisteUsuario usr = new PersisteUsuario();
-                                    Usuario aux = new Usuario(login, null, nomeSala);
-                                    aux.adicionarParticipanteSala(nomeSala);
-                                    usr.updateUsuario(aux);
-                                    System.out.println("User: " + aux.getNomeusuario() + "\n" + aux.getProprietarioSala());
-
+                                    PersisteSala sala = new PersisteSala();
+                                    sala.cadastrar(new Sala(nomeSala));
+                                    Usuario aux = new Usuario(login, null, true, sala.getSala(nomeSala).getIdSala());
+                                    usr.cadastrar(aux);
                                     painelPrincipal.getChildren().clear();
                                     painelPrincipal.getChildren().add(novaTela);
                                     Text titulo = (Text) (((AnchorPane) (((AnchorPane) novaTela.getChildren().get(0)).getChildren().get(1))).getChildren().get(1));
@@ -149,7 +150,7 @@ public class FXMLLoginController implements Initializable {
                 ArrayList<Usuario> usuariosOnline = usr.listarUsuario();
                 System.out.println("size_" + usuariosOnline.size());
                 for (int i = 0; i < usuariosOnline.size(); i++) {
-                    RadioButton r = new RadioButton(usuariosOnline.get(i).getNomeusuario());
+                    RadioButton r = new RadioButton(usuariosOnline.get(i).getNomeUsuario());
                     r.setLayoutX(x);
                     r.setLayoutY(y);
                     painelSalas.getChildren().add(r);
@@ -170,9 +171,7 @@ public class FXMLLoginController implements Initializable {
             PersisteUsuario bdUsuario = new PersisteUsuario();
             Usuario usuario = null;
             usuario = bdUsuario.getUserLogin(nomeUsuario.getText(), null);
-         
             if (usuario == null) {
-                bdUsuario.cadastrar(new Usuario(nomeUsuario.getText(), null));
                 return true;
             }
             return false;

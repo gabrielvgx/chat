@@ -5,39 +5,47 @@ package Domain;
  */
 public class Usuario {
 
-    private String nomeusuario;
+    private int idUsuario;
+    private String nomeUsuario;
     private String senha;
-    private Long idUsuario;
-    private String proprietarioSala;
-    private String participanteSala;
+    private int idSala;
+    private boolean admSala;
 
     public Usuario() {
     }
 
     public Usuario(String nomeusuario, String senha) {
-        this.nomeusuario = nomeusuario;
+        this.nomeUsuario = nomeusuario;
         this.senha = senha;
     }
 
-    public Usuario(String nomeusuario, String senha, String proprietarioSala) {
-        this.nomeusuario = nomeusuario;
+    public Usuario(String nomeusuario, String senha, boolean admSala) {
+        this.nomeUsuario = nomeusuario;
         this.senha = senha;
-        this.proprietarioSala = proprietarioSala;
+        this.admSala = admSala;
     }
 
-    public Usuario(String nomeusuario, String senha, String proprietarioSala, String participanteSala) {
-        this.nomeusuario = nomeusuario;
+    public Usuario(String nomeusuario, String senha, boolean admSala, int idSala) {
+        this.nomeUsuario = nomeusuario;
         this.senha = senha;
-        this.proprietarioSala = proprietarioSala;
-        this.participanteSala = participanteSala;
+        this.admSala = admSala;
+        this.idSala = idSala;
+    }
+    
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+    
+    public void setIdUsuario(int idUsuario){
+        this.idUsuario = idUsuario;
     }
 
-    public String getNomeusuario() {
-        return nomeusuario;
+    public String getNomeUsuario() {
+        return nomeUsuario;
     }
 
-    public void setNomeusuario(String nomeusuario) {
-        this.nomeusuario = nomeusuario;
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 
     public String getSenha() {
@@ -48,35 +56,19 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Long getIdUsuario() {
-        return idUsuario;
+    public boolean getAdmSala() {
+        return this.admSala;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setAdmSala(boolean admSala) {
+        this.admSala = admSala;
     }
 
-    public void setProprietarioSala(String proprietarioSala) {
-        this.proprietarioSala = proprietarioSala;
+    public int getIdSala() {
+        return this.idSala;
     }
 
-    public String getProprietarioSala() {
-        return proprietarioSala;
-    }
-
-    public void setParticipanteSala(String participanteSala) {
-        this.participanteSala = participanteSala;
-    }
-
-    public String getParticipanteSala() {
-        return participanteSala;
-    }
-
-    public void adicionarParticipanteSala(String sala) {
-        if (participanteSala == null) {
-            this.participanteSala = sala;
-        } else {
-            this.participanteSala += "," + sala;
-        }
+    public void setIdSala(int idSala) {
+        this.idSala = idSala;
     }
 }

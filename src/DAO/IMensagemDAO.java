@@ -10,5 +10,5 @@ import java.util.ArrayList;
  */
 public interface IMensagemDAO {
     public boolean Envia_Msg(Mensagem mensagem) throws ExcecaoPersistencia;
-    public ArrayList<Mensagem> Mostra_Msg(String id_sala) throws ExcecaoPersistencia;
+    public ArrayList<Mensagem> Mostra_Msg(int id_sala) throws ExcecaoPersistencia;
 }

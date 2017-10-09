@@ -6,26 +6,27 @@ package Domain;
  */
 public class Mensagem {
     
+    private int idMensagem;
     private String txtMensagem;
-    private String usuario;
-    private String dataTime;
-    private String id_sala;
+    private String dateTime;
+    private int idUsuario;
+    private int idSala;
 
     public Mensagem(){}
     
-    public Mensagem(String txtMensagem, String usuario, String id_sala) {
+    public Mensagem(String txtMensagem, int idUsuario, int idSala) {
         this.txtMensagem = txtMensagem;
-        this.usuario = usuario;
-        this.id_sala = id_sala;
+        this.idUsuario = idUsuario;
+        this.idSala = idSala;
         
     }
 
-    public String getId_sala() {
-        return id_sala;
+    public int getIdSala() {
+        return idSala;
     }
 
-    public void setId_sala(String id_sala) {
-        this.id_sala = id_sala;
+    public void setIdSala(int idSala) {
+        this.idSala = idSala;
     }
 
     public String getTxtMensagem() {
@@ -36,21 +37,38 @@ public class Mensagem {
         this.txtMensagem = txtMensagem;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public int getUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(String usuário) {
-        this.usuario = usuário;
+    public void setUsuario(int idUsuário) {
+        this.idUsuario = idUsuário;
     }
 
-    public String getDataTime() {
-        return dataTime;
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public void setDataTime(String dataTime) {
-        this.dataTime = dataTime;
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
+
+    public int getIdMensagem() {
+        return idMensagem;
+    }
+
+    public void setIdMensagem(int idMensagem) {
+        this.idMensagem = idMensagem;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
     
     
 }

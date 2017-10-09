@@ -10,6 +10,6 @@ import java.util.ArrayList;
  */
 public interface IPersisteMsg {
    public boolean Envia_Msg(Mensagem mensagem) throws ExcecaoPersistencia;
-   public ArrayList<Mensagem> Mostra_msg(String id_sala) throws ExcecaoPersistencia;
+   public ArrayList<Mensagem> Mostra_msg(int idSala) throws ExcecaoPersistencia;
  
 }

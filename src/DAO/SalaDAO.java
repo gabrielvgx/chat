@@ -2,29 +2,27 @@ package DAO;
 
 import Connection.ConnectionManager;
 import Domain.ExcecaoPersistencia;
-import Domain.Usuario;
+import Domain.Sala;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- * @author bella
- */
-public class UsuarioDAO implements IUsuarioDAO {
+public class SalaDAO implements ISalaDAO{
 
     @Override
-    public String cadastrar(Usuario usuario) throws ExcecaoPersistencia {
+    public String cadastrar(Sala sala) throws ExcecaoPersistencia {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sqlConfere = "SELECT * FROM usuario";
+            String sqlConfere = "SELECT * FROM sala";
             PreparedStatement pstmtConfere = connection.prepareStatement(sqlConfere);
             ResultSet rs = pstmtConfere.executeQuery();
+
             boolean confere = false;
             while (rs.next()) {
-                if (rs.getString("nom_usuario").equals(usuario.getNomeUsuario())) {
+                if (rs.getString("nom_sala").equals(sala.getNomeSala())) {
                     confere = true;
                 }
             }
@@ -33,25 +31,22 @@ public class UsuarioDAO implements IUsuarioDAO {
             rs.close();
 
             if (!confere) {
-                String sql = "INSERT INTO usuario (nom_usuario, senha, id_sala, admSala)"
-                        + " VALUES(?,?,?,?)";
+                String sql = "INSERT INTO sala (nom_sala)"
+                        + " VALUES(?)";
 
                 PreparedStatement pstmt = connection.prepareStatement(sql);
-                pstmt.setString(1, usuario.getNomeUsuario());
-                pstmt.setString(2, usuario.getSenha());
-                pstmt.setInt(3, usuario.getIdSala());
-                pstmt.setBoolean(4, usuario.getAdmSala());
+                pstmt.setString(1, sala.getNomeSala());
                 
                 pstmt.executeUpdate();
 
                 pstmt.close();
                 connection.close();
 
-                return usuario.getNomeUsuario();
+                return sala.getNomeSala();
             } else {
 
                 connection.close();
-                return "Usuário Já Cadastrado";
+                return "Sala Já Cadastrada";
             }
 
         } catch (Exception e) {
@@ -61,15 +56,17 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public boolean excluir(String usuario) throws ExcecaoPersistencia {
+    public boolean excluir(String nomeSala) throws ExcecaoPersistencia {
 
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "DELETE FROM Usuario WHERE nom_usuario LIKE '"+usuario+"'";
+            String sql = "DELETE FROM sala WHERE nom_Sala LIKE '"+nomeSala+"'";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, nomeSala);
             pstmt.executeUpdate();
+
             pstmt.close();
             connection.close();
             return true;
@@ -81,48 +78,36 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public Usuario getUserLogin(String nome, String senha) throws ExcecaoPersistencia {
+    public Sala getSala(String nomeSala) throws ExcecaoPersistencia {
+        Sala sala = null;
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
-            String sql = "";
-            if (senha == null) {
-                sql = "SELECT * FROM Usuario WHERE nom_usuario LIKE '" + nome + "' AND senha IS NULL";
-            } else {
-                sql = "SELECT * FROM Usuario WHERE nom_usuario LIKE '" + nome + "' AND senha LIKE '"+senha+"'";
-            }
+            String sql = "SELECT * FROM sala WHERE nom_sala LIKE '" + nomeSala+"'";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
-
-            Usuario usuario = null;
             if (rs.next()) {
-                usuario = new Usuario();
-                usuario.setSenha(rs.getString("senha"));
-                usuario.setNomeUsuario(rs.getString("nom_usuario"));
-                usuario.setIdUsuario(rs.getInt("id_usuario"));
-                usuario.setAdmSala(rs.getBoolean("admSala"));
-                usuario.setIdSala(rs.getInt("id_sala"));
+                sala = new Sala();
+                sala.setIdSala(rs.getInt("id_Sala"));
+                sala.setNomeSala(rs.getString("nom_sala"));
             }
-
             rs.close();
             pstmt.close();
             connection.close();
-
-            return usuario;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ExcecaoPersistencia(e.getMessage(), e);
+            
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
         }
+        return sala;
     }
 
     @Override
-    public boolean updateUsuario(Usuario usuario) {
+    public boolean updateSala(Sala sala) {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
-            String sqlConfere = "UPDATE `chat`.`usuario` SET `admSala` = ?, `id_sala` = ? WHERE `usuario`.`nom_usuario` LIKE '"+usuario.getNomeUsuario()+"'";
+            String sqlConfere = "UPDATE `chat`.`sala` SET `nom_sala` = ? WHERE `sala`.`id_Sala` = ?;";
             PreparedStatement pstmt = connection.prepareStatement(sqlConfere);
-            pstmt.setBoolean(1, usuario.getAdmSala());
-            pstmt.setInt(2, usuario.getIdSala());
+            pstmt.setString(1, sala.getNomeSala());
+            pstmt.setInt(2, sala.getIdSala());
             pstmt.executeUpdate();
             pstmt.close();
 
@@ -134,16 +119,16 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public ArrayList<Usuario> listarUsuario() throws ExcecaoPersistencia {
-        ArrayList<Usuario> result = new ArrayList<>();
+    public ArrayList<Sala> listarSala() throws ExcecaoPersistencia {
+        ArrayList<Sala> result = new ArrayList<>();
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sqlConfere = "SELECT * FROM usuario";
+            String sqlConfere = "SELECT * FROM sala";
             PreparedStatement pstmtConfere = connection.prepareStatement(sqlConfere);
             ResultSet rs = pstmtConfere.executeQuery();
             while (rs.next()) {
-                result.add(new Usuario(rs.getString("nom_usuario"), rs.getString("senha"), rs.getBoolean("admSala"), rs.getInt("id_sala")));
+                result.add(new Sala(rs.getInt("id_Sala"), rs.getString("nom_sala")));
             }
             pstmtConfere.close();
             rs.close();

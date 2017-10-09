@@ -21,20 +21,20 @@ public class MensagemDAO implements IMensagemDAO {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "INSERT INTO mensagem(txt_msg, usuario, datatime, id_sala)"
+            String sql = "INSERT INTO mensagem(txt_msg, id_Usuario, datetime, id_sala)"
                     + "VALUES(?,?,?,?)";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, mensagem.getTxtMensagem());
-            pstmt.setString(2, mensagem.getUsuario());
-            
+            pstmt.setInt(2, mensagem.getIdUsuario());
+ 
 
             Locale locale = new Locale("pt", "BR");
             GregorianCalendar calendar = new GregorianCalendar();
             SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", locale); 
-            mensagem.setDataTime(formatador.format(calendar.getTime()));
-            pstmt.setString(3, mensagem.getDataTime());
-            pstmt.setString(4, mensagem.getId_sala());
+            mensagem.setDateTime(formatador.format(calendar.getTime()));
+            pstmt.setString(3, mensagem.getDateTime());
+            pstmt.setInt(4, mensagem.getIdSala());
 
             pstmt.executeUpdate();
 
@@ -50,15 +50,15 @@ public class MensagemDAO implements IMensagemDAO {
     }
 
     @Override
-    public ArrayList<Mensagem> Mostra_Msg(String id_sala) throws ExcecaoPersistencia {
+    public ArrayList<Mensagem> Mostra_Msg(int idSala) throws ExcecaoPersistencia {
         try{
             Connection connection = ConnectionManager.getInstance().getConnection();
 
             String sql = "SELECT * FROM `mensagem` WHERE `id_sala` = ?"
-                    + " ORDER BY `mensagem`.`id_sala` DESC";
+                    + " ORDER BY `mensagem`.`datetime` DESC";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, id_sala);
+            pstmt.setInt(1, idSala);
             ResultSet rs = pstmt.executeQuery();
             
             ArrayList<Mensagem> mensagens = new ArrayList<>();
@@ -66,10 +66,10 @@ public class MensagemDAO implements IMensagemDAO {
             
             while(rs.next()){
                 msg = new Mensagem();
-                msg.setDataTime(rs.getString("datatime"));
-                msg.setUsuario(rs.getString("usuario"));
-                msg.setTxtMensagem(rs.getString("txt_msg"));
-                msg.setId_sala(rs.getString("id_sala"));
+                msg.setDateTime(rs.getString("datetime"));
+                msg.setUsuario(rs.getInt("id_usuario"));
+                msg.setTxtMensagem(rs.getString("txt_mensagem"));
+                msg.setIdSala(rs.getInt("id_sala"));
                 mensagens.add(msg);
             }
             

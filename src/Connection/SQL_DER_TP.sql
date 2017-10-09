@@ -12,12 +12,12 @@ Database: MySQL 5.6
 
 CREATE TABLE `usuario`
 (
-  `id_usario` Int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` Int(11) NOT NULL AUTO_INCREMENT,
   `nom_usuario` Varchar(30) NOT NULL,
   `senha` Varchar(20),
   `id_sala` Int(11) NOT NULL,
   `admSala` Bool NOT NULL DEFAULT false,
-  PRIMARY KEY (`id_usario`,`id_sala`)
+  PRIMARY KEY (`id_usuario`,`id_sala`)
 )
 ;
 
@@ -28,9 +28,9 @@ CREATE TABLE `mensagem`
   `id_mensagem` Int(11) NOT NULL AUTO_INCREMENT,
   `txt_mensagem` Varchar(100) NOT NULL,
   `datetime` Datetime NOT NULL,
-  `id_usario` Int(11) NOT NULL,
+  `id_usuario` Int(11) NOT NULL,
   `id_sala` Int(11) NOT NULL,
-  PRIMARY KEY (`id_mensagem`,`id_usario`,`id_sala`)
+  PRIMARY KEY (`id_mensagem`,`id_usuario`,`id_sala`)
 )
 ;
 
@@ -49,7 +49,7 @@ ALTER TABLE `sala` ADD UNIQUE `nom_sala` (`nom_sala`)
 
 -- Create relationships section ------------------------------------------------- 
 
-ALTER TABLE `mensagem` ADD CONSTRAINT `Relationship1` FOREIGN KEY (`id_usario`, `id_sala`) REFERENCES `usuario` (`id_usario`, `id_sala`) ON DELETE RESTRICT ON UPDATE RESTRICT
+ALTER TABLE `mensagem` ADD CONSTRAINT `Relationship1` FOREIGN KEY (`id_usuario`, `id_sala`) REFERENCES `usuario` (`id_usuario`, `id_sala`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ;
 
 ALTER TABLE `usuario` ADD CONSTRAINT `Relationship2` FOREIGN KEY (`id_sala`) REFERENCES `sala` (`id_sala`) ON DELETE RESTRICT ON UPDATE RESTRICT
