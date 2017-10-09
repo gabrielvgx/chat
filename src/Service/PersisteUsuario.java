@@ -44,4 +44,12 @@ public class PersisteUsuario implements IPersisteUsuario {
         boolean result = instance.updateUsuario(usuario);
         return result;
     }
+    
+    @Override
+    public ArrayList<Usuario> listarUsuarioSala(int idSala) throws ExcecaoPersistencia{
+        UsuarioDAO instance = new UsuarioDAO();
+        ArrayList<Usuario> result = instance.listarUsuarioSala(idSala);
+        return result;
+    }
+            
 }

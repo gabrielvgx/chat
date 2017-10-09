@@ -41,7 +41,7 @@ public class UsuarioDAO implements IUsuarioDAO {
                 pstmt.setString(2, usuario.getSenha());
                 pstmt.setInt(3, usuario.getIdSala());
                 pstmt.setBoolean(4, usuario.getAdmSala());
-                
+
                 pstmt.executeUpdate();
 
                 pstmt.close();
@@ -66,7 +66,7 @@ public class UsuarioDAO implements IUsuarioDAO {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "DELETE FROM Usuario WHERE nom_usuario LIKE '"+usuario+"'";
+            String sql = "DELETE FROM Usuario WHERE nom_usuario LIKE '" + usuario + "'";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.executeUpdate();
@@ -88,7 +88,7 @@ public class UsuarioDAO implements IUsuarioDAO {
             if (senha == null) {
                 sql = "SELECT * FROM Usuario WHERE nom_usuario LIKE '" + nome + "' AND senha IS NULL";
             } else {
-                sql = "SELECT * FROM Usuario WHERE nom_usuario LIKE '" + nome + "' AND senha LIKE '"+senha+"'";
+                sql = "SELECT * FROM Usuario WHERE nom_usuario LIKE '" + nome + "' AND senha LIKE '" + senha + "'";
             }
             PreparedStatement pstmt = connection.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
@@ -119,7 +119,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     public boolean updateUsuario(Usuario usuario) {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
-            String sqlConfere = "UPDATE `chat`.`usuario` SET `admSala` = ?, `id_sala` = ? WHERE `usuario`.`nom_usuario` LIKE '"+usuario.getNomeUsuario()+"'";
+            String sqlConfere = "UPDATE `chat`.`usuario` SET `admSala` = ?, `id_sala` = ? WHERE `usuario`.`nom_usuario` LIKE '" + usuario.getNomeUsuario() + "'";
             PreparedStatement pstmt = connection.prepareStatement(sqlConfere);
             pstmt.setBoolean(1, usuario.getAdmSala());
             pstmt.setInt(2, usuario.getIdSala());
@@ -140,6 +140,27 @@ public class UsuarioDAO implements IUsuarioDAO {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
             String sqlConfere = "SELECT * FROM usuario";
+            PreparedStatement pstmtConfere = connection.prepareStatement(sqlConfere);
+            ResultSet rs = pstmtConfere.executeQuery();
+            while (rs.next()) {
+                result.add(new Usuario(rs.getString("nom_usuario"), rs.getString("senha"), rs.getBoolean("admSala"), rs.getInt("id_sala")));
+            }
+            pstmtConfere.close();
+            rs.close();
+            return result;
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return result;
+    }
+
+    public ArrayList<Usuario> listarUsuarioSala(int idSala) {
+        ArrayList<Usuario> result = new ArrayList<>();
+        try {
+            Connection connection = ConnectionManager.getInstance().getConnection();
+
+            String sqlConfere = "SELECT * FROM `usuario` WHERE `id_sala` = "+idSala;
             PreparedStatement pstmtConfere = connection.prepareStatement(sqlConfere);
             ResultSet rs = pstmtConfere.executeQuery();
             while (rs.next()) {

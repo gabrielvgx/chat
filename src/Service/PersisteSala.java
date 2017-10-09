@@ -29,6 +29,13 @@ public class PersisteSala implements IPersisteSala{
     }
     
     @Override
+    public Sala getSala(int idSala) throws ExcecaoPersistencia {
+        SalaDAO instance = new SalaDAO();
+        Sala result = instance.getSala(idSala);
+        return result;
+    }
+    
+    @Override
     public ArrayList<Sala> listarSala() throws ExcecaoPersistencia{
         SalaDAO instance = new SalaDAO();
         ArrayList<Sala> result = instance.listarSala();

@@ -1,10 +1,11 @@
-package core;
+package chatLogin;
 
+import core.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Servidor {
+public class Servidor1 {
 	public static void main(String[] args) {
 		
 		ServerSocket servidor = null;

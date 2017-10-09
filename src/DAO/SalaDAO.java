@@ -64,7 +64,6 @@ public class SalaDAO implements ISalaDAO{
             String sql = "DELETE FROM sala WHERE nom_Sala LIKE '"+nomeSala+"'";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, nomeSala);
             pstmt.executeUpdate();
 
             pstmt.close();
@@ -83,6 +82,29 @@ public class SalaDAO implements ISalaDAO{
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
             String sql = "SELECT * FROM sala WHERE nom_sala LIKE '" + nomeSala+"'";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                sala = new Sala();
+                sala.setIdSala(rs.getInt("id_Sala"));
+                sala.setNomeSala(rs.getString("nom_sala"));
+            }
+            rs.close();
+            pstmt.close();
+            connection.close();
+            
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return sala;
+    }
+
+    @Override
+    public Sala getSala(int idSala) throws ExcecaoPersistencia {
+        Sala sala = null;
+        try {
+            Connection connection = ConnectionManager.getInstance().getConnection();
+            String sql = "SELECT * FROM sala WHERE id_sala =" + idSala;
             PreparedStatement pstmt = connection.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {

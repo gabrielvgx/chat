@@ -74,14 +74,14 @@
                                           </Button>
                                        </children>
                                     </AnchorPane>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="62.0" prefWidth="209.0">
+                                  <AnchorPane fx:id="A1A1A1S1A1S1_A2" minHeight="0.0" minWidth="0.0" prefHeight="62.0" prefWidth="209.0">
                                        <children>
-                                          <RadioButton id="private" layoutX="37.0" layoutY="8.0" mnemonicParsing="false" text="Privado" textFill="#5e0303">
+                                          <RadioButton id="private" fx:id="A1A1A1S1A1S1A2_RadioButtonPrivado" layoutX="37.0" layoutY="8.0" mnemonicParsing="false" text="Privado" textFill="#5e0303">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="RadioPrivadoPublico" />
                                              </toggleGroup>
                                           </RadioButton>
-                                          <RadioButton id="public" layoutX="37.0" layoutY="38.0" mnemonicParsing="false" text="Público" textFill="#24037c" toggleGroup="$RadioPrivadoPublico" />
+                                          <RadioButton id="public" fx:id="A1A1A1S1A1S1A2_RadioButtonPublico" layoutX="37.0" layoutY="38.0" mnemonicParsing="false" selected="true" text="Público" textFill="#24037c" toggleGroup="$RadioPrivadoPublico" />
                                        </children>
                                     </AnchorPane>
                                 </items>

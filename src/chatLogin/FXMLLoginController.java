@@ -29,6 +29,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javax.imageio.ImageIO;
@@ -49,6 +50,7 @@ public class FXMLLoginController implements Initializable {
     @FXML
     Label erroLogar;
     private String login;
+    private String nomeSala;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -85,20 +87,60 @@ public class FXMLLoginController implements Initializable {
     protected void fazerLogin(ActionEvent e) {
         try {
             if (validaLogin()) {
-                
+                Cliente1 cliente = new Cliente1();
+                Cliente1.iniciarChat();
+                // cliente.inicarLeitor();
+
                 login = ((TextArea) painelPrincipal.getChildren().get(2)).getText();
                 painelPrincipal.getChildren().clear();
-
                 AnchorPane novaTela = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+
+                painelPrincipal.autosize();
+                painelPrincipal.setTopAnchor(novaTela, 0.0);
+                painelPrincipal.setBottomAnchor(novaTela, 0.0);
+                painelPrincipal.setLeftAnchor(novaTela, 0.0);
+                painelPrincipal.setRightAnchor(novaTela, 0.0);
                 painelPrincipal.getChildren().add(novaTela);
+
                 AnchorPane teste = (AnchorPane) novaTela.getChildren().get(0);
 
+                Button botaoEnviar = (Button) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((AnchorPane) novaTela.getChildren().get(0))
+                        .getChildren().get(0)).getChildren().get(0)).getItems().get(1)).getChildren().get(0)).getItems().get(1)).getChildren().get(0);
+                botaoEnviar.setOnAction(event -> {
+                    PersisteUsuario usr = new PersisteUsuario();
+                    try {
+                        if (usr.getUserLogin(login, null) == null) {
+                            gerarNotificacao("Ops!", "Crie uma sala ou entre em uma existente para enviar uma mensagem!");
+                        } else {
+                            cliente.iniciarEscritor((TextArea) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((AnchorPane) novaTela.getChildren().get(0))
+                                    .getChildren().get(0)).getChildren().get(0)).getItems().get(1)).getChildren().get(0)).getItems().get(1)).getChildren().get(1));
+                        }
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    } catch (ExcecaoPersistencia ex) {
+                        Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
                 Label criarSala = ((Label) (((AnchorPane) (teste.getChildren().get(1))).getChildren().get(3)));
                 Label sair = ((Label) (((AnchorPane) (teste.getChildren().get(1))).getChildren().get(2)));
                 sair.setOnMouseClicked(((event -> {
-                    gerarNotificacao("Obrigado por usar nosso Software", "Volte Sempre, " + login + "!");
-                    System.exit(0);
+                    try {
+                        gerarNotificacao("Obrigado por usar nosso Software", "Volte Sempre, " + login + "!");
+                        PersisteUsuario usr = new PersisteUsuario();
+                        if (usr.getUserLogin(login, null) != null) {
+                            PersisteSala sala = new PersisteSala();
+                            Usuario aux = usr.getUserLogin(login, null);
+                            usr.excluir(login);
+                            if (usr.listarUsuarioSala(aux.getIdSala()).isEmpty()) {
+                                sala.excluir(sala.getSala(aux.getIdSala()).getNomeSala());
+                            }
+                        }
+                        System.exit(0);
+                    } catch (ExcecaoPersistencia ex) {
+                        Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 })));
+
                 criarSala.setOnMouseClicked(((event) -> {
                     try {
                         painelPrincipal.getChildren().clear();
@@ -108,7 +150,7 @@ public class FXMLLoginController implements Initializable {
                         Button adicionar = (Button) a.getChildren().get(0);
 
                         adicionar.setOnMouseClicked(((MouseEvent -> {
-                            String nomeSala = ((TextArea) novaSala.getChildren().get(2)).getText();
+                            nomeSala = ((TextArea) novaSala.getChildren().get(2)).getText();
                             if (nomeSala.length() > 15) {
                                 Label notificar = ((Label) a.getChildren().get(3));
                                 notificar.setText("Máximo de 15 caracteres");
@@ -138,24 +180,49 @@ public class FXMLLoginController implements Initializable {
 
                 }));
 
-                SplitPane panel = (SplitPane) (((AnchorPane) teste.getChildren().get(0)).getChildren().get(0));
-                AnchorPane painelSalas = (AnchorPane) (((ScrollPane) ((AnchorPane) ((TitledPane) (((AnchorPane) ((SplitPane) (((AnchorPane) ((SplitPane) (((AnchorPane) panel.getItems().get(0))
+                SplitPane painel = (SplitPane) (((AnchorPane) teste.getChildren().get(0)).getChildren().get(0));
+                AnchorPane painelSalas = (AnchorPane) (((ScrollPane) ((AnchorPane) ((TitledPane) (((AnchorPane) ((SplitPane) (((AnchorPane) ((SplitPane) (((AnchorPane) painel.getItems().get(0))
                         .getChildren().get(0))).getItems().get(0)).getChildren().get(0))).getItems().get(0)).getChildren().get(0))).getContent()).getChildren().get(0))).getContent();
+                System.out.println("split_");
+                AnchorPane painelParticipantes = (AnchorPane) ((ScrollPane) ((TitledPane) (((AnchorPane) ((SplitPane) (((AnchorPane) ((SplitPane) (((AnchorPane) painel.getItems().get(0))
+                        .getChildren().get(0))).getItems().get(0)).getChildren().get(0))).getItems().get(1)).getChildren().get(0))).getContent()).getContent();
 
+                double x1 = painelParticipantes.getLayoutX() + 20;
+                double y1 = painelParticipantes.getLayoutY() + 10;
+                PersisteSala sala = new PersisteSala();
+                PersisteUsuario usuario = new PersisteUsuario();
+                if (nomeSala != null) {
+                    ArrayList<Usuario> participantes = usuario.listarUsuarioSala(sala.getSala(nomeSala).getIdSala());
+                    for (int i = 0; i < participantes.size(); i++) {
+                        RadioButton r = new RadioButton(participantes.get(i).getNomeUsuario());
+                        r.setLayoutX(x1);
+                        r.setLayoutY(y1);
+                        painelParticipantes.getChildren().add(r);
+                        y1 += 20;
+                        painelParticipantes.setPrefHeight(y1);
+                    }
+                }
                 double x = painelSalas.getLayoutX() + 20;
                 double y = painelSalas.getLayoutY() + 10;
-                System.out.println("y = " + painelSalas.getPrefHeight());
-                System.out.println(new PersisteUsuario().listarUsuario());
-                PersisteUsuario usr = new PersisteUsuario();
-                ArrayList<Usuario> usuariosOnline = usr.listarUsuario();
-                System.out.println("size_" + usuariosOnline.size());
-                for (int i = 0; i < usuariosOnline.size(); i++) {
-                    RadioButton r = new RadioButton(usuariosOnline.get(i).getNomeUsuario());
-                    r.setLayoutX(x);
-                    r.setLayoutY(y);
-                    painelSalas.getChildren().add(r);
-                    y += 20;
-                    painelSalas.setPrefHeight(y);
+                ArrayList<Sala> salasDisponiveis = sala.listarSala();
+                ToggleGroup grupo = new ToggleGroup();
+
+                for (int i = 0; i < salasDisponiveis.size(); i++) {
+                    if (usuario.listarUsuarioSala(salasDisponiveis.get(i).getIdSala()).isEmpty()) {
+                        sala.excluir(salasDisponiveis.get(i).getNomeSala());
+                    } else {
+                        RadioButton r = new RadioButton(salasDisponiveis.get(i).getNomeSala());
+                        r.setToggleGroup(grupo);
+                        r.setLayoutX(x);
+                        r.setLayoutY(y);
+                        r.setOnAction(((event -> {
+
+                        })));
+
+                        painelSalas.getChildren().add(r);
+                        y += 20;
+                        painelSalas.setPrefHeight(y);
+                    }
                 }
 
             } else {

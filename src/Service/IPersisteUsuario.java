@@ -14,4 +14,5 @@ public interface IPersisteUsuario {
     public Usuario getUserLogin(String nome, String senha) throws ExcecaoPersistencia;
     public ArrayList<Usuario> listarUsuario() throws ExcecaoPersistencia;
     public boolean updateUsuario(Usuario usuario) throws ExcecaoPersistencia;
+    public ArrayList<Usuario> listarUsuarioSala(int idSala) throws ExcecaoPersistencia;
 }

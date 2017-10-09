@@ -1,5 +1,6 @@
-package core;
+package chatLogin;
 
+import core.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -7,18 +8,21 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-public class Cliente {
+public class Cliente1 {
 
     private JList liUsarios = new JList();
     private ObjectOutputStream escritor;
     private ObjectInputStream leitor;
 
-    public Cliente() {
+    public Cliente1() {
     }
 
     /**
@@ -26,7 +30,7 @@ public class Cliente {
      *
      * @param usuarios
      */
-    private void preencherListaUsuarios(String[] usuarios) {
+    protected void preencherListaUsuarios(String[] usuarios) {
         DefaultListModel modelo = new DefaultListModel();
         liUsarios.setModel(modelo);
         for (String usuario : usuarios) {
@@ -34,32 +38,37 @@ public class Cliente {
         }
     }
 
-    private void iniciarEscritor() throws IOException {//ActionOnClicked do botao enviar mensagem
-        escritor = new ObjectOutputStream(Cliente.iniciarChat().getOutputStream());
+    protected void iniciarEscritor(TextArea mensagem) throws IOException {//ActionOnClicked do botao enviar mensagem
+        escritor = new ObjectOutputStream(Cliente1.iniciarChat().getOutputStream());
 
-        TextArea mensagem = new TextArea();
         if (mensagem.getText().isEmpty()) {
             return;
         }
-        Object usuario = liUsarios.getSelectedValue();
-        if (usuario != null) {
-            try {
-                System.out.println("Eu: " + mensagem.getText());
+        SplitPane s = (SplitPane) mensagem.getParent().getParent().getParent().getParent().getParent().getParent();
+        RadioButton privado = (RadioButton) (((AnchorPane) ((SplitPane) ((AnchorPane) s.getItems().get(0))
+                .getChildren().get(0)).getItems().get(1)).getChildren().get(0));
+        if (privado.isSelected()) {
+            System.out.println();
+            Object usuario = liUsarios.getSelectedValue();//pegaUsuarioSelecionadao
+            if (usuario != null) {
+                try {
+                    System.out.println("Eu: " + mensagem.getText());
 
-                escritor.writeObject(Comandos.MENSAGEM + usuario);
-                escritor.writeObject(mensagem.getText());
-                mensagem.setText(null);
-            } catch (IOException ex) {
-                Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+                    escritor.writeObject(Comandos.MENSAGEM + usuario);
+                    escritor.writeObject(mensagem.getText());
+                    mensagem.setText(null);
+                } catch (IOException ex) {
+                    Logger.getLogger(Cliente1.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione um usuario");
+                return;
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um usuario");
-            return;
         }
-
     }
 
     public static Socket iniciarChat() {//Continua na classe cliente
+
         Socket cliente = null;
         try {
             cliente = new Socket("127.0.0.1", 9999);
@@ -73,19 +82,12 @@ public class Cliente {
         return cliente;
     }
 
-    public static void main(String[] args) throws IOException {
-        Cliente cliente = new Cliente();
-        cliente.iniciarChat();
-        cliente.iniciarEscritor();
-        cliente.inicarLeitor();
-    }
-
-    private void atualizarListaUsuarios() throws IOException {
+    protected void atualizarListaUsuarios() throws IOException {
         escritor.writeObject(Comandos.LISTA_USUARIOS);
     }
 
-    private void inicarLeitor() throws IOException {
-        leitor = new ObjectInputStream(Cliente.iniciarChat().getInputStream());
+    protected void inicarLeitor() throws IOException {
+        leitor = new ObjectInputStream(Cliente1.iniciarChat().getInputStream());
 
 // lendo mensagens do servidor
         try {
@@ -120,7 +122,7 @@ public class Cliente {
         }
     }
 
-    private DefaultListModel getListaUsuarios() {
+    protected DefaultListModel getListaUsuarios() {
         return (DefaultListModel) liUsarios.getModel();
     }
 }
