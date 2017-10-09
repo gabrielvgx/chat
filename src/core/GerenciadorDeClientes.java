@@ -24,10 +24,6 @@ public class GerenciadorDeClientes extends Thread {
 		this.cliente = cliente;
 		start();
 	}
-	
-	/**
-	 * 
-	 */
 	@Override
 	public void run() {
 		try {

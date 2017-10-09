@@ -18,7 +18,6 @@ public class Cadastro extends Application {
         
         try {
             Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
-            //Gabriel Victor Guima
             Scene scene = new Scene(root);
           
             primaryStage.setScene(scene);

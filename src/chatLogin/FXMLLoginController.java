@@ -5,11 +5,12 @@
  */
 package chatLogin;
 
-import Domain.ExcessoesPercistencia;
+import Domain.ExcecaoPersistencia;
 import Domain.Usuario;
 import Service.PercisteUsuario;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,8 +18,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -61,7 +65,7 @@ public class FXMLLoginController implements Initializable {
                         painelPrincipal.getChildren().add(novaSala);
                         AnchorPane a = (AnchorPane) painelPrincipal.getChildren().get(0);
                         Button adicionar = (Button) a.getChildren().get(0);
-                        System.out.println("OK_"+a.getChildren());
+                        
                         adicionar.setOnMouseClicked(((MouseEvent -> {
                             String nomeSala = ((TextArea) novaSala.getChildren().get(2)).getText();
                             if (nomeSala.length() > 15) {
@@ -78,7 +82,7 @@ public class FXMLLoginController implements Initializable {
                             }
                         })));
 
-                        System.out.println(a.getChildren());
+                        
                     } catch (IOException ex) {
                         System.out.println(ex.getMessage());
                     }
@@ -86,13 +90,27 @@ public class FXMLLoginController implements Initializable {
                 }));
 
                 SplitPane panel = (SplitPane) (((AnchorPane) teste.getChildren().get(0)).getChildren().get(0));
-                /*
-                System.out.println("oii__"+((TitledPane)(((AnchorPane)((SplitPane)(((AnchorPane)((SplitPane)(((AnchorPane)panel.getItems().get(0))
-                        .getChildren().get(0))).getItems().get(0)).getChildren().get(0))).getItems().get(0)).getChildren().get(0))).get);*/
+                AnchorPane painelSalas = (AnchorPane)(((ScrollPane)((AnchorPane)((TitledPane)(((AnchorPane)((SplitPane)(((AnchorPane)((SplitPane)(((AnchorPane)panel.getItems().get(0))
+                        .getChildren().get(0))).getItems().get(0)).getChildren().get(0))).getItems().get(0)).getChildren().get(0))).getContent()).getChildren().get(0))).getContent();
+                
+                double x = painelSalas.getLayoutX()+20;
+                double y = painelSalas.getLayoutY()+10;
+                System.out.println("y = "+painelSalas.getPrefHeight());
+                System.out.println(new PercisteUsuario().listarUsuario());
+                PercisteUsuario usr = new PercisteUsuario();
+                ArrayList<Usuario> usuariosOnline = usr.listarUsuario();System.out.println("size_"+usuariosOnline.size());
+                for(int i=0; i < usuariosOnline.size(); i++){
+                    RadioButton r = new RadioButton(usuariosOnline.get(i).getNomeusuario());
+                    r.setLayoutX(x);
+                    r.setLayoutY(y);
+                    painelSalas.getChildren().add(r);
+                    y+=20;
+                    painelSalas.setPrefHeight(y);
+                }
+                
             }
         } catch (Exception ex) {
             System.out.println(ex.toString());
-            System.out.println("fudeu");
         }
     }
 
@@ -110,7 +128,7 @@ public class FXMLLoginController implements Initializable {
             erroLogar.setText("Essa id ja esta em uso!");
 
             return false;
-        } catch (ExcessoesPercistencia ex) {
+        } catch (ExcecaoPersistencia ex) {
             System.out.println(ex.getMessage());
         }
         return false;

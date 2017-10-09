@@ -37,7 +37,7 @@
                                                                <children>
                                                                   <ScrollPane fx:id="A1A1A1S1A1S1A1S1A1TitledPaneBatePapoA1_ScrollPane" layoutX="21.7" prefHeight="248.0" prefWidth="192.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
                                                                     <content>
-                                                                      <AnchorPane fx:id="A1A1A1S1A1S1A1S1A1TitledPaneBatePapoA1ScrollPane_A1" minHeight="0.0" minWidth="0.0" prefHeight="196.0" prefWidth="199.0" />
+                                                                      <AnchorPane fx:id="A1A1A1S1A1S1A1S1A1TitledPaneBatePapoA1ScrollPane_A1" minHeight="0.0" minWidth="0.0" prefHeight="196.0" prefWidth="204.0" />
                                                                     </content>
                                                                   </ScrollPane>
                                                                </children>
@@ -134,12 +134,12 @@
                         <Font name="Lucida Calligraphy Italic" size="26.0" />
                      </font>
                   </Text>
-                  <Label fx:id="A1A1A2_LabelSair" alignment="CENTER" contentDisplay="TOP" layoutX="732.0" layoutY="16.0" prefHeight="32.0" prefWidth="54.0" style="-fx-background-color: #008B8B;" text="SAIR" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="16.0">
+                  <Label fx:id="A1A1A2_LabelSair" alignment="CENTER" contentDisplay="TOP" layoutX="601.0" layoutY="10.0" prefHeight="32.0" prefWidth="54.0" style="-fx-background-color: #008B8B;" text="SAIR" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font name="Tahoma" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="A1A1A2_LabelCriarSala" alignment="CENTER" layoutX="496.0" layoutY="17.0" prefHeight="30.0" prefWidth="91.0" style="-fx-background-color: #008B8B;" text="CRIAR SALA" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="68.0" AnchorPane.topAnchor="17.0">
+                  <Label fx:id="A1A1A2_LabelCriarSala" alignment="CENTER" layoutX="496.0" layoutY="11.0" prefHeight="30.0" prefWidth="91.0" style="-fx-background-color: #008B8B;" text="CRIAR SALA" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="68.0" AnchorPane.topAnchor="11.0">
                      <font>
                         <Font name="Tahoma" size="16.0" />
                      </font>

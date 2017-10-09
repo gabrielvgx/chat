@@ -1,7 +1,7 @@
 package DAO;
 
 import Connection.ConnectionManager;
-import Domain.ExcessoesPercistencia;
+import Domain.ExcecaoPersistencia;
 import Domain.Mensagem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,7 @@ import java.util.Locale;
 public class MensagemDAO implements IMensagemDAO {
 
     @Override
-    public boolean Envia_Msg(Mensagem mensagem) throws ExcessoesPercistencia {
+    public boolean Envia_Msg(Mensagem mensagem) throws ExcecaoPersistencia {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
@@ -50,7 +50,7 @@ public class MensagemDAO implements IMensagemDAO {
     }
 
     @Override
-    public ArrayList<Mensagem> Mostra_Msg(String id_sala) throws ExcessoesPercistencia {
+    public ArrayList<Mensagem> Mostra_Msg(String id_sala) throws ExcecaoPersistencia {
         try{
             Connection connection = ConnectionManager.getInstance().getConnection();
 
