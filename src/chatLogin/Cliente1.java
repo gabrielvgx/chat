@@ -56,15 +56,28 @@ public class Cliente1 {
      * Preenche a lista de usuarios
      *
      * @param usuarios
+     * @param painelParticipantes
      */
-    protected void preencherListaUsuarios(ArrayList<Usuario> usuarios) {
-        
+    protected void preencherListaUsuarios(ArrayList<Usuario> usuarios, AnchorPane painelParticipantes) {
+        ArrayList<Usuario> usuariosSala = usuarios;
+        painelParticipantes.getChildren().clear();
+        double x1 = painelParticipantes.getLayoutX() + 20;
+        double y1 = painelParticipantes.getLayoutY() + 10;
+        for (Usuario usuariosSala1 : usuariosSala) {
+            RadioButton r = new RadioButton(usuariosSala1.getNomeUsuario());
+            r.setLayoutX(x1);
+            r.setLayoutY(y1);
+            painelParticipantes.getChildren().add(r);
+            y1 += 20;
+            painelParticipantes.setPrefHeight(y1);
+        }
     }
 
     public void carregarTelaChat(String login, AnchorPane painelPrincipal) throws IOException, ExcecaoPersistencia {
 
         painelPrincipal.getChildren().clear();
         AnchorPane novaTela = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+
         painelPrincipal.setTopAnchor(novaTela, 0.0);
         painelPrincipal.setBottomAnchor(novaTela, 0.0);
         painelPrincipal.setLeftAnchor(novaTela, 0.0);
@@ -73,6 +86,7 @@ public class Cliente1 {
         painelPrincipal.requestLayout();
         AnchorPane teste = (AnchorPane) novaTela.getChildren().get(0);
 
+        
         Button botaoEnviar = (Button) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((AnchorPane) novaTela.getChildren().get(0))
                 .getChildren().get(0)).getChildren().get(0)).getItems().get(1)).getChildren().get(0)).getItems().get(1)).getChildren().get(0);
         botaoEnviar.setOnAction(event -> {
@@ -167,7 +181,7 @@ public class Cliente1 {
 
         PersisteSala sala = new PersisteSala();
         PersisteUsuario usuario = new PersisteUsuario();
-        
+
         double x = painelSalas.getLayoutX() + 20;
         double y = painelSalas.getLayoutY() + 10;
         ArrayList<Sala> salasDisponiveis = sala.listarSala();
@@ -185,11 +199,11 @@ public class Cliente1 {
                     @Override
                     public void handle(ActionEvent event) {
                         try {
-                            if(new PersisteUsuario().getUserLogin(login, null) == null){
-                                new PersisteUsuario().cadastrar(new Usuario(login,null,false,new PersisteSala().getSala(r.getText()).getIdSala()));
+                            if (new PersisteUsuario().getUserLogin(login, null) == null) {
+                                new PersisteUsuario().cadastrar(new Usuario(login, null, false, new PersisteSala().getSala(r.getText()).getIdSala()));
                             }
                             ArrayList<Usuario> usuarios = new PersisteUsuario().listarUsuarioSala(new PersisteSala().getSala(r.getText()).getIdSala());
-                            preencherListaUsuarios(usuarios);
+                            preencherListaUsuarios(usuarios, painelParticipantes);
                         } catch (ExcecaoPersistencia ex) {
                             Logger.getLogger(Cliente1.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -301,7 +315,6 @@ public class Cliente1 {
 
     protected int inicarLeitor(String login, AnchorPane painelPrincipal) throws IOException {
         this.painelPrincipal = painelPrincipal;
-
 // lendo mensagens do servidor
         try {
             while (true) {
@@ -312,8 +325,12 @@ public class Cliente1 {
 
                 // recebe o texto
                 if (mensagem.equals(Comandos.LISTA_USUARIOS)) {
+                    AnchorPane painelParticipantes = ((AnchorPane)((ScrollPane)((TitledPane)((AnchorPane)((SplitPane)((AnchorPane)((SplitPane)((AnchorPane)((SplitPane)((AnchorPane)((AnchorPane)(((AnchorPane) painelPrincipal.getChildren().get(0)).getChildren().get(0)))
+                            .getChildren().get(0)).getChildren().get(0)).getItems().get(0))
+                                .getChildren().get(0)).getItems().get(0)).getChildren().get(0)).getItems().get(1))
+                                    .getChildren().get(0)).getContent()).getContent());
                     ArrayList<Usuario> usuarios = (ArrayList<Usuario>) leitor.readObject();
-                    preencherListaUsuarios(usuarios);
+                    preencherListaUsuarios(usuarios, painelParticipantes);
                 } else if (mensagem.equals(Comandos.LOGIN)) {
                     escritor.writeObject(login);
                 } else if (mensagem.equals(Comandos.LOGIN_NEGADO)) {
