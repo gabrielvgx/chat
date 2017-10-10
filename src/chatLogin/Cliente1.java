@@ -44,7 +44,7 @@ import javax.swing.JOptionPane;
 public class Cliente1 {
 
     private JList liUsarios = new JList();
-    private ObjectOutputStream escritor;
+     private  ObjectOutputStream escritor;
     private ObjectInputStream leitor;
     private AnchorPane painelPrincipal;
     Socket cliente = null;
@@ -70,6 +70,21 @@ public class Cliente1 {
             painelParticipantes.getChildren().add(r);
             y1 += 20;
             painelParticipantes.setPrefHeight(y1);
+        }
+    }
+    
+    protected void preencherListaMensagem(ArrayList<Mensagem> mensagem, AnchorPane Aconversas) {
+        ArrayList<Mensagem> mensagemSala = mensagem;
+        Aconversas.getChildren().clear();
+        double x1 = Aconversas.getLayoutX() + 20;
+        double y1 = Aconversas.getLayoutY() + 10;
+        for (Mensagem mensagemSala1 : mensagemSala) {
+            Label l = new Label(mensagemSala1.getTxtMensagem());
+            l.setLayoutX(x1);
+            l.setLayoutY(y1);
+            Aconversas.getChildren().add(l);
+            y1 += 20;
+            Aconversas.setPrefHeight(y1);
         }
     }
 
@@ -110,9 +125,18 @@ public class Cliente1 {
 
                         //System.out.println(Aconversas.getId());
                         Label msg = new Label(leitor.readObject().toString());
-                        System.out.println(msg.getText());
+                        PersisteMsg mensagem = new PersisteMsg();
+                        Usuario user = usr.getUserLogin(login, null);
+                        System.out.println(msg.getText()+":"+user.getIdUsuario()+":"+user.getIdSala());
+                        mensagem.Envia_Msg(new Mensagem(msg.getText(),user.getIdUsuario(),user.getIdSala()));
+                        System.out.println("LOLOLO"+msg.getText());
                         msg.setLayoutX(Aconversas.getLayoutX()+10);
-                        msg.setLayoutY(Aconversas.getChildren().get(Aconversas.getChildren().size()-1).getLayoutY()-10);
+                        if(Aconversas.getChildren().size() != 0){
+                        msg.setLayoutY(Aconversas.getChildren().get(Aconversas.getChildren().size()-1).getLayoutY()+20);
+                        
+                        }else{
+                            msg.setLayoutY(Aconversas.getLayoutY()+20);
+                        }
                         System.out.println(msg.getLayoutX());
                         System.out.println(msg.getLayoutY());
                         Aconversas.getChildren().add(msg);
@@ -218,7 +242,13 @@ public class Cliente1 {
                                 new PersisteUsuario().cadastrar(new Usuario(login, null, false, new PersisteSala().getSala(r.getText()).getIdSala()));
                             }
                             ArrayList<Usuario> usuarios = new PersisteUsuario().listarUsuarioSala(new PersisteSala().getSala(r.getText()).getIdSala());
+                            ArrayList<Mensagem> mensagens = new PersisteMsg().Mostra_msg(new PersisteSala().getSala(r.getText()).getIdSala());
                             preencherListaUsuarios(usuarios, painelParticipantes);
+                             AnchorPane Aconversas = (AnchorPane) ((TitledPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) (((AnchorPane) (((AnchorPane) (((AnchorPane) (painelPrincipal
+                                .getChildren().get(0))).getChildren().get(0))).getChildren().get(0)))
+                                .getChildren().get(0))).getItems().get(1)).getChildren().get(0)).getItems().get(0)).getChildren().get(0)).getContent();
+
+                            preencherListaMensagem(mensagens, Aconversas);
                         } catch (ExcecaoPersistencia ex) {
                             Logger.getLogger(Cliente1.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -345,6 +375,10 @@ public class Cliente1 {
                             .getChildren().get(0)).getItems().get(0)).getChildren().get(0)).getItems().get(1))
                             .getChildren().get(0)).getContent()).getContent());
                     ArrayList<Usuario> usuarios = (ArrayList<Usuario>) leitor.readObject();
+                    System.out.println("SIZE: "+usuarios.size());
+                    for(int i=0; i<usuarios.size();i++){
+                        System.out.println(usuarios.get(i).getNomeUsuario());
+                    }
                     preencherListaUsuarios(usuarios, painelParticipantes);
                 } else if (mensagem.equals(Comandos.LOGIN)) {
                     escritor.writeObject(login);

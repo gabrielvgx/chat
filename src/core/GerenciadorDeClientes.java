@@ -19,8 +19,8 @@ public class GerenciadorDeClientes extends Thread {
     private String nomeCliente;
     private ObjectInputStream leitor;
     private ObjectOutputStream escritor;
-    private static final Map<Usuario, GerenciadorDeClientes> clientes = 
-                         new HashMap<Usuario, GerenciadorDeClientes>();
+    public static final Map<String, GerenciadorDeClientes> clientes = 
+                         new HashMap<String, GerenciadorDeClientes>();
 
     public GerenciadorDeClientes(Socket cliente) {
         this.cliente = cliente;
@@ -39,6 +39,7 @@ public class GerenciadorDeClientes extends Thread {
             String msg;
             while (true) {
                 msg = leitor.readObject().toString();
+       
                 if (msg.equalsIgnoreCase(Comandos.SAIR)) {
                     this.cliente.close();
                 } else if (msg.startsWith(Comandos.MENSAGEM)) {
@@ -51,8 +52,9 @@ public class GerenciadorDeClientes extends Thread {
                     System.out.println("XXX_"+mensagem);
                     //System.out.println();
                     for(int i=0; i<clientes.size();i++){
-                        System.out.println((usr.listarUsuarioSala(usr.getUserLogin(nomeCliente, null).getIdSala()).get(i)).getIdUsuario());
-                        destinatario.add(clientes.get(usr.listarUsuarioSala(usr.getUserLogin(nomeCliente, null).getIdSala()).get(i)));
+                        System.out.println("PPP_"+clientes.size());
+                        System.out.println(usr.listarUsuarioSala(usr.getUserLogin(nomeCliente, null).getIdSala()).get(i).getNomeUsuario());
+                        destinatario.add(clientes.get(usr.listarUsuarioSala(usr.getUserLogin(nomeCliente, null).getIdSala()).get(i).getNomeUsuario()));
                         destinatario.get(i).getEscritor().writeObject(this.nomeCliente + " disse: " + mensagem);
                     }
                     
@@ -60,7 +62,7 @@ public class GerenciadorDeClientes extends Thread {
 
                     // lista o nome de todos os clientes logados
                 } else if (msg.equals(Comandos.LISTA_USUARIOS)) {
-                    atualizarListaUsuarios(null);
+                    atualizarListaUsuarios(this);
                 } else {
                     escritor.writeObject(this.nomeCliente + ", você disse: " + msg);
                 }
@@ -91,22 +93,31 @@ public class GerenciadorDeClientes extends Thread {
             } else {
                 escritor.writeObject(Comandos.LOGIN_ACEITO);
                 escritor.writeObject("olá " + this.nomeCliente);
-                clientes.put(usr.getUserLogin(nomeCliente, null), this);
+                
+                clientes.put(nomeCliente, this);
+                for (String cliente: clientes.keySet()) {
+                    atualizarListaUsuarios(clientes.get(cliente));
+                }
+                System.out.println("jkejijfjid: "+ nomeCliente);
+                System.out.println(clientes.get(nomeCliente));
                 break;
             }
         }
     }
 
-    private void atualizarListaUsuarios(Usuario cliente) throws IOException, ExcecaoPersistencia {
+    private void atualizarListaUsuarios(GerenciadorDeClientes cliente) throws IOException, ExcecaoPersistencia {
         PersisteUsuario usr = new PersisteUsuario();
-        ArrayList<Usuario> usuario = usr.listarUsuarioSala(cliente.getIdSala());
-        usuario.add(cliente);
+        ArrayList<Usuario> usuario = new ArrayList<>();
+        Usuario atual = usr.getUserLogin(cliente.getNomeCliente(), null);
+        for(String c: clientes.keySet()){
+            
+            usuario.add(atual);
+        }
+        System.out.println("O SIZE: 0"+usuario.size());
+            cliente.getEscritor().writeObject(Comandos.LISTA_USUARIOS);
+            cliente.getEscritor().writeObject(usuario);
         
-
-        
-        ObjectOutputStream c = new ObjectOutputStream(this.cliente.getOutputStream());
-        c.writeObject(Comandos.LISTA_USUARIOS);
-        c.writeObject(usuario);
+      
     
     }
     public ObjectOutputStream getEscritor() {

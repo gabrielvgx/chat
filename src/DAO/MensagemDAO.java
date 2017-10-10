@@ -21,7 +21,7 @@ public class MensagemDAO implements IMensagemDAO {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "INSERT INTO mensagem(txt_msg, id_Usuario, datetime, id_sala)"
+            String sql = "INSERT INTO mensagem(txt_mensagem, id_Usuario, datetime, id_sala)"
                     + "VALUES(?,?,?,?)";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -37,7 +37,7 @@ public class MensagemDAO implements IMensagemDAO {
             pstmt.setInt(4, mensagem.getIdSala());
 
             pstmt.executeUpdate();
-
+            
             pstmt.close();
             connection.close();
 
