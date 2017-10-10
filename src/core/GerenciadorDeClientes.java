@@ -8,6 +8,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,7 +19,8 @@ public class GerenciadorDeClientes extends Thread {
     private String nomeCliente;
     private ObjectInputStream leitor;
     private ObjectOutputStream escritor;
-    //private static final Map<Usuario, GerenciadorDeClientes> clientes = new HashMap<Usuario, GerenciadorDeClientes>();
+    private static final Map<Usuario, GerenciadorDeClientes> clientes = 
+                         new HashMap<Usuario, GerenciadorDeClientes>();
 
     public GerenciadorDeClientes(Socket cliente) {
         this.cliente = cliente;
@@ -42,12 +45,15 @@ public class GerenciadorDeClientes extends Thread {
                     String nomeDestinario = msg.substring(Comandos.MENSAGEM.length(), msg.length());
                     System.out.println("enviando para " + nomeDestinario);
                     //GerenciadorDeClientes destinario = clientes.get(new Usuario(nomeDestinario, null));
-                    GerenciadorDeClientes destinario = null;
-                    if (destinario == null) {
-                        escritor.writeObject("O cliente informado nao existe");
-                    } else {
-                        destinario.getEscritor().writeObject(this.nomeCliente + " disse: " + leitor.readObject());
+                    ArrayList<GerenciadorDeClientes> destinatario = new ArrayList<>();
+                    
+                    String mensagem =  leitor.readObject().toString();
+                    for(int i=0; i<clientes.size();i++){
+                        destinatario.add(clientes.get(usr.listarUsuarioSala(usr.getUserLogin(nomeCliente, null).getIdSala()).get(i)));
+                        destinatario.get(i).getEscritor().writeObject(this.nomeCliente + " disse: " + mensagem);
                     }
+                    
+                
 
                     // lista o nome de todos os clientes logados
                 } else if (msg.equals(Comandos.LISTA_USUARIOS)) {
@@ -56,20 +62,17 @@ public class GerenciadorDeClientes extends Thread {
                     escritor.writeObject(this.nomeCliente + ", você disse: " + msg);
                 }
             }
-
-        } catch (IOException e) {
-            System.err.println("o cliente fechou a conexao");
-            try {
-                usr.excluir(nomeCliente);
             } catch (ExcecaoPersistencia ex) {
-                Logger.getLogger(GerenciadorDeClientes.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            //clientes.remove(this.nomeCliente);
-            e.printStackTrace();
-        } catch (ClassNotFoundException | ExcecaoPersistencia ex) {
+            Logger.getLogger(GerenciadorDeClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (IOException ex) {
+            Logger.getLogger(GerenciadorDeClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //clientes.remove(this.nomeCliente);
+         catch (ClassNotFoundException ex) {
             Logger.getLogger(GerenciadorDeClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 
     private synchronized void efetuarLogin() throws IOException, ClassNotFoundException, ExcecaoPersistencia {
         PersisteUsuario usr = new PersisteUsuario();
@@ -86,7 +89,7 @@ public class GerenciadorDeClientes extends Thread {
                 escritor.writeObject(Comandos.LOGIN_ACEITO);
                 escritor.writeObject("olá " + this.nomeCliente);
                 usr.cadastrar(new Usuario(this.nomeCliente, null));
-                
+                clientes.put(usr.getUserLogin(nomeCliente, null), this);
                 break;
             }
         }

@@ -86,10 +86,10 @@ public class Cliente1 {
         painelPrincipal.requestLayout();
         AnchorPane teste = (AnchorPane) novaTela.getChildren().get(0);
 
-        
         Button botaoEnviar = (Button) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((AnchorPane) novaTela.getChildren().get(0))
                 .getChildren().get(0)).getChildren().get(0)).getItems().get(1)).getChildren().get(0)).getItems().get(1)).getChildren().get(0);
         botaoEnviar.setOnAction(event -> {
+
             //A1A1A1S1A1S1A2_RadioButtonPrivado
             RadioButton privado = (RadioButton) (((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) (((AnchorPane) ((AnchorPane) ((AnchorPane) painelPrincipal.getChildren().get(0)).getChildren().get(0)).getChildren()
                     .get(0)).getChildren().get(0))).getItems().get(0)).getChildren().get(0)).getItems().get(1)).getChildren().get(0));
@@ -101,11 +101,26 @@ public class Cliente1 {
                         gerarNotificacao("Ops!", "Crie uma sala ou entre em uma existente para enviar uma mensagem!");
                     } else {
                         escritor.writeObject(Comandos.MENSAGEM + login);
-                        escritor.writeObject((TextArea) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((AnchorPane) novaTela.getChildren().get(0))
-                                .getChildren().get(0)).getChildren().get(0)).getItems().get(1)).getChildren().get(0)).getItems().get(1)).getChildren().get(1));
+                        escritor.writeObject(((TextArea) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((AnchorPane) novaTela.getChildren().get(0))
+                                .getChildren().get(0)).getChildren().get(0)).getItems().get(1)).getChildren().get(0)).getItems().get(1)).getChildren().get(1)).getText());
+                        //A1A1A1S1A2S1A1TitledPaneConversas_A1
+                        AnchorPane Aconversas = (AnchorPane) ((TitledPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) (((AnchorPane) (((AnchorPane) (((AnchorPane) (painelPrincipal
+                                .getChildren().get(0))).getChildren().get(0))).getChildren().get(0)))
+                                .getChildren().get(0))).getItems().get(1)).getChildren().get(0)).getItems().get(0)).getChildren().get(0)).getContent();
+
+                        //System.out.println(Aconversas.getId());
+                        Label msg = new Label(leitor.readObject().toString());
+                        System.out.println(msg.getText());
+                        msg.setLayoutX(Aconversas.getLayoutX()+10);
+                        msg.setLayoutY(Aconversas.getChildren().get(Aconversas.getChildren().size()-1).getLayoutY()-10);
+                        System.out.println(msg.getLayoutX());
+                        System.out.println(msg.getLayoutY());
+                        Aconversas.getChildren().add(msg);
                     }
 
                 } catch (IOException | ExcecaoPersistencia ex) {
+                    Logger.getLogger(Cliente1.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Cliente1.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -325,10 +340,10 @@ public class Cliente1 {
 
                 // recebe o texto
                 if (mensagem.equals(Comandos.LISTA_USUARIOS)) {
-                    AnchorPane painelParticipantes = ((AnchorPane)((ScrollPane)((TitledPane)((AnchorPane)((SplitPane)((AnchorPane)((SplitPane)((AnchorPane)((SplitPane)((AnchorPane)((AnchorPane)(((AnchorPane) painelPrincipal.getChildren().get(0)).getChildren().get(0)))
+                    AnchorPane painelParticipantes = ((AnchorPane) ((ScrollPane) ((TitledPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((AnchorPane) (((AnchorPane) painelPrincipal.getChildren().get(0)).getChildren().get(0)))
                             .getChildren().get(0)).getChildren().get(0)).getItems().get(0))
-                                .getChildren().get(0)).getItems().get(0)).getChildren().get(0)).getItems().get(1))
-                                    .getChildren().get(0)).getContent()).getContent());
+                            .getChildren().get(0)).getItems().get(0)).getChildren().get(0)).getItems().get(1))
+                            .getChildren().get(0)).getContent()).getContent());
                     ArrayList<Usuario> usuarios = (ArrayList<Usuario>) leitor.readObject();
                     preencherListaUsuarios(usuarios, painelParticipantes);
                 } else if (mensagem.equals(Comandos.LOGIN)) {

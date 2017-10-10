@@ -1,7 +1,10 @@
 package chat.DAO;
 
 import DAO.UsuarioDAO;
+import Domain.ExcecaoPersistencia;
 import Domain.Usuario;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -14,12 +17,20 @@ import org.junit.Test;
  * @author bella
  */
 public class UsuarioDAOTest {
+        private static UsuarioDAO instance;
 
     public UsuarioDAOTest() {
     }
 
     @BeforeClass
     public static void setUpClass() {
+            try {
+                instance = new UsuarioDAO();
+                Usuario gvgx = new Usuario("Gabrigol", null, false, 2);
+                instance.cadastrar(gvgx);
+            } catch (ExcecaoPersistencia ex) {
+                Logger.getLogger(UsuarioDAOTest.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 
     @AfterClass
@@ -40,12 +51,10 @@ public class UsuarioDAOTest {
     @Test
     public void testCadastrar() throws Exception {
         try {
-            Usuario usuario = new Usuario("Gabrigol", "123456");
-            Usuario usuario2 = new Usuario("Lolzinho", "123456");
-            UsuarioDAO instance = new UsuarioDAO();
+            Usuario usuario2 = new Usuario("Lolzinho", null, false, 2);
             String expResult = usuario2.getNomeUsuario();
             String result = instance.cadastrar(usuario2);
-            instance.cadastrar(usuario);
+            //instance.cadastrar(usuario);
             assertEquals(expResult, result);
         } catch (Exception e) {
             fail("Não gravou");
@@ -59,7 +68,6 @@ public class UsuarioDAOTest {
     public void testExcluir() throws Exception {
         try {
             String usuario = "Lolzinho";
-            UsuarioDAO instance = new UsuarioDAO();
             boolean expResult = true;
             boolean result = instance.excluir(usuario);
             assertEquals(expResult, result);
@@ -75,9 +83,8 @@ public class UsuarioDAOTest {
     public void testGetUserLogin() throws Exception {
         try {
             String nome = "Gabrigol";
-            String senha = "123456";
-            UsuarioDAO instance = new UsuarioDAO();
-            Usuario expResult = new Usuario("Gabrigol", "123456");
+            String senha = null;
+            Usuario expResult = new Usuario("Gabrigol", null, false, 2);
             Usuario result = instance.getUserLogin(nome, senha);
             assertEquals(expResult.getNomeUsuario(), result.getNomeUsuario());
         } catch (Exception e) {

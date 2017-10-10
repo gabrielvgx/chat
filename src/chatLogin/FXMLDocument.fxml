@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="A1" prefHeight="603.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="A1" prefHeight="603.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
     <children>
       <AnchorPane fx:id="A1_A1" prefHeight="603.0" prefWidth="655.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -67,7 +67,7 @@
                                                 </AnchorPane>
                                             </items>
                                           </SplitPane>
-                                          <Button fx:id="A1A1A1S1A1S1A1_AdicionarParticipante" layoutX="167.0" layoutY="425.0" mnemonicParsing="false" style="-fx-background-color: #008B8B; -fx-background-radius: 40px;" text="+" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="7.0">
+                                          <Button fx:id="A1A1A1S1A1S1A1_AdicionarParticipante" disable="true" layoutX="167.0" layoutY="425.0" mnemonicParsing="false" style="-fx-background-color: #008B8B; -fx-background-radius: 40px;" text="+" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="7.0">
                                              <font>
                                                 <Font name="Arial" size="18.0" />
                                              </font>
