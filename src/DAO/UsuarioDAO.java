@@ -39,7 +39,7 @@ public class UsuarioDAO implements IUsuarioDAO {
                 PreparedStatement pstmt = connection.prepareStatement(sql);
                 pstmt.setString(1, usuario.getNomeUsuario());
                 pstmt.setString(2, usuario.getSenha());
-                pstmt.setInt(3, usuario.getIdSala());
+                pstmt.setInt(3, 2);
                 pstmt.setBoolean(4, usuario.getAdmSala());
 
                 pstmt.executeUpdate();
@@ -48,6 +48,7 @@ public class UsuarioDAO implements IUsuarioDAO {
                 connection.close();
 
                 return usuario.getNomeUsuario();
+                
             } else {
 
                 connection.close();

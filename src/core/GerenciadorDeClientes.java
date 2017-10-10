@@ -48,7 +48,10 @@ public class GerenciadorDeClientes extends Thread {
                     ArrayList<GerenciadorDeClientes> destinatario = new ArrayList<>();
                     
                     String mensagem =  leitor.readObject().toString();
+                    System.out.println("XXX_"+mensagem);
+                    //System.out.println();
                     for(int i=0; i<clientes.size();i++){
+                        System.out.println((usr.listarUsuarioSala(usr.getUserLogin(nomeCliente, null).getIdSala()).get(i)).getIdUsuario());
                         destinatario.add(clientes.get(usr.listarUsuarioSala(usr.getUserLogin(nomeCliente, null).getIdSala()).get(i)));
                         destinatario.get(i).getEscritor().writeObject(this.nomeCliente + " disse: " + mensagem);
                     }
@@ -88,7 +91,6 @@ public class GerenciadorDeClientes extends Thread {
             } else {
                 escritor.writeObject(Comandos.LOGIN_ACEITO);
                 escritor.writeObject("olá " + this.nomeCliente);
-                usr.cadastrar(new Usuario(this.nomeCliente, null));
                 clientes.put(usr.getUserLogin(nomeCliente, null), this);
                 break;
             }
