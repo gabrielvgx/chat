@@ -73,8 +73,9 @@ public class FXMLLoginController implements Initializable {
     protected void fazerLogin(ActionEvent e) throws IOException, ExcecaoPersistencia {
 
         Cliente1 cliente = new Cliente1();
-        cliente.iniciarChat();
         login = ((TextArea) painelPrincipal.getChildren().get(2)).getText();
+        System.out.println("Login: "+login);
+        cliente.iniciarChat(login);
         if (cliente.inicarLeitor(login, painelPrincipal) != -1) {
             cliente.iniciarEscritor(login, painelPrincipal);
         }
