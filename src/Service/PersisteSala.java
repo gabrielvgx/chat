@@ -22,21 +22,21 @@ public class PersisteSala implements IPersisteSala{
     }
 
     @Override
-    public Sala getSala(String nomeSala) throws ExcecaoPersistencia {
+    public synchronized Sala getSala(String nomeSala) throws ExcecaoPersistencia {
         SalaDAO instance = new SalaDAO();
         Sala result = instance.getSala(nomeSala);
         return result;
     }
     
     @Override
-    public Sala getSala(int idSala) throws ExcecaoPersistencia {
+    public synchronized Sala getSala(int idSala) throws ExcecaoPersistencia {
         SalaDAO instance = new SalaDAO();
         Sala result = instance.getSala(idSala);
         return result;
     }
     
     @Override
-    public ArrayList<Sala> listarSala() throws ExcecaoPersistencia{
+    public synchronized ArrayList<Sala> listarSala() throws ExcecaoPersistencia{
         SalaDAO instance = new SalaDAO();
         ArrayList<Sala> result = instance.listarSala();
         return result;

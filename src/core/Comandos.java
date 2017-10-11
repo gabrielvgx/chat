@@ -1,7 +1,7 @@
 package core;
 
 
-public class Comandos {
+public class Comandos implements java.io.Serializable{
 
 	public static final String LISTA_USUARIOS = "::LISTA_CLIENTES";
 	public static final String SAIR = "::SAIR";

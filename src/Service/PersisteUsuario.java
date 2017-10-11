@@ -25,14 +25,14 @@ public class PersisteUsuario implements IPersisteUsuario {
     }
 
     @Override
-    public Usuario getUserLogin(String nome, String senha) throws ExcecaoPersistencia {
+    public synchronized Usuario getUserLogin(String nome, String senha) throws ExcecaoPersistencia {
         UsuarioDAO instance = new UsuarioDAO();
         Usuario result = instance.getUserLogin(nome, senha);
         return result;
     }
     
     @Override
-    public ArrayList<Usuario> listarUsuario() throws ExcecaoPersistencia{
+    public synchronized ArrayList<Usuario> listarUsuario() throws ExcecaoPersistencia{
         UsuarioDAO instance = new UsuarioDAO();
         ArrayList<Usuario> result = instance.listarUsuario();
         return result;
@@ -46,7 +46,7 @@ public class PersisteUsuario implements IPersisteUsuario {
     }
     
     @Override
-    public ArrayList<Usuario> listarUsuarioSala(int idSala) throws ExcecaoPersistencia{
+    public synchronized ArrayList<Usuario> listarUsuarioSala(int idSala) throws ExcecaoPersistencia{
         UsuarioDAO instance = new UsuarioDAO();
         ArrayList<Usuario> result = instance.listarUsuarioSala(idSala);
         return result;

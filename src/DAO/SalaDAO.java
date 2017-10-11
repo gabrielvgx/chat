@@ -77,7 +77,7 @@ public class SalaDAO implements ISalaDAO{
     }
 
     @Override
-    public Sala getSala(String nomeSala) throws ExcecaoPersistencia {
+    public synchronized Sala getSala(String nomeSala) throws ExcecaoPersistencia {
         Sala sala = null;
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
@@ -100,7 +100,7 @@ public class SalaDAO implements ISalaDAO{
     }
 
     @Override
-    public Sala getSala(int idSala) throws ExcecaoPersistencia {
+    public synchronized Sala getSala(int idSala) throws ExcecaoPersistencia {
         Sala sala = null;
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();

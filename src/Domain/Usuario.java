@@ -3,7 +3,7 @@ package Domain;
 /**
  * @author bella
  */
-public class Usuario {
+public class Usuario implements java.io.Serializable{
 
     private int idUsuario;
     private String nomeUsuario;

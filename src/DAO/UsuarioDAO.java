@@ -82,7 +82,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public Usuario getUserLogin(String nome, String senha) throws ExcecaoPersistencia {
+    public synchronized Usuario getUserLogin(String nome, String senha) throws ExcecaoPersistencia {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
             String sql = "";
@@ -135,7 +135,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public ArrayList<Usuario> listarUsuario() throws ExcecaoPersistencia {
+    public synchronized ArrayList<Usuario> listarUsuario() throws ExcecaoPersistencia {
         ArrayList<Usuario> result = new ArrayList<>();
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
@@ -156,7 +156,7 @@ public class UsuarioDAO implements IUsuarioDAO {
         return result;
     }
 
-    public ArrayList<Usuario> listarUsuarioSala(int idSala) {
+    public synchronized ArrayList<Usuario> listarUsuarioSala(int idSala) {
         ArrayList<Usuario> result = new ArrayList<>();
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();

@@ -21,7 +21,7 @@ public class SqlConnection implements ConnectionFactory {
     }
 
     @Override
-    public Connection getConnection() throws ClassNotFoundException, SQLException {
+    public synchronized Connection getConnection() throws ClassNotFoundException, SQLException {
         try {
             Class.forName(dbDriver);
             return DriverManager.getConnection(dbURL, user, pass);

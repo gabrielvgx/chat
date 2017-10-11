@@ -19,7 +19,7 @@ public class ConnectionManager {
         return conexao;
     }
 
-    public Connection getConnection() throws ClassNotFoundException, SQLException {
+    public synchronized Connection getConnection() throws ClassNotFoundException, SQLException {
 
         return ConnectionManager.cf.getConnection();
     }

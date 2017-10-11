@@ -27,8 +27,6 @@ public class Cadastro extends Application {
         }
     }
     public static void main(String[] args) {
-        String teste = "Gabriel Victor Guima";
-        System.out.println("length = " + teste.length());
         launch(args);
     }
     

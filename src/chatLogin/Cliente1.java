@@ -37,18 +37,17 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javax.imageio.ImageIO;
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-public class Cliente1 {
+public class Cliente1 implements java.io.Serializable{
 
-    private JList liUsarios = new JList();
-     private  ObjectOutputStream escritor;
+    private  ObjectOutputStream escritor;
     private ObjectInputStream leitor;
     private AnchorPane painelPrincipal;
-    Socket cliente = null;
-
+    private Socket cliente = null;
+    private PersisteUsuario usr = new PersisteUsuario();
+    private PersisteSala sala = new PersisteSala();
+    private PersisteMsg msg = new PersisteMsg();
     public Cliente1() {
     }
 
@@ -98,54 +97,49 @@ public class Cliente1 {
         painelPrincipal.setLeftAnchor(novaTela, 0.0);
         painelPrincipal.setRightAnchor(novaTela, 0.0);
         painelPrincipal.getChildren().add(novaTela);
-        painelPrincipal.requestLayout();
+        //painelPrincipal.requestLayout();
         AnchorPane teste = (AnchorPane) novaTela.getChildren().get(0);
 
         Button botaoEnviar = (Button) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((AnchorPane) novaTela.getChildren().get(0))
                 .getChildren().get(0)).getChildren().get(0)).getItems().get(1)).getChildren().get(0)).getItems().get(1)).getChildren().get(0);
         botaoEnviar.setOnAction(event -> {
 
-            //A1A1A1S1A1S1A2_RadioButtonPrivado
             RadioButton privado = (RadioButton) (((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) (((AnchorPane) ((AnchorPane) ((AnchorPane) painelPrincipal.getChildren().get(0)).getChildren().get(0)).getChildren()
                     .get(0)).getChildren().get(0))).getItems().get(0)).getChildren().get(0)).getItems().get(1)).getChildren().get(0));
 
             if (!privado.isSelected()) {
                 try {
-                    PersisteUsuario usr = new PersisteUsuario();
+                    
                     if (usr.getUserLogin(login, null) == null) {
                         gerarNotificacao("Ops!", "Crie uma sala ou entre em uma existente para enviar uma mensagem!");
                     } else {
                         escritor.writeObject(Comandos.MENSAGEM + login);
                         escritor.writeObject(((TextArea) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((AnchorPane) novaTela.getChildren().get(0))
                                 .getChildren().get(0)).getChildren().get(0)).getItems().get(1)).getChildren().get(0)).getItems().get(1)).getChildren().get(1)).getText());
-                        //A1A1A1S1A2S1A1TitledPaneConversas_A1
+                        
                         AnchorPane Aconversas = (AnchorPane) ((TitledPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) (((AnchorPane) (((AnchorPane) (((AnchorPane) (painelPrincipal
                                 .getChildren().get(0))).getChildren().get(0))).getChildren().get(0)))
                                 .getChildren().get(0))).getItems().get(1)).getChildren().get(0)).getItems().get(0)).getChildren().get(0)).getContent();
 
-                        //System.out.println(Aconversas.getId());
                         Label msg = new Label(leitor.readObject().toString());
-                        PersisteMsg mensagem = new PersisteMsg();
                         Usuario user = usr.getUserLogin(login, null);
-                        System.out.println(msg.getText()+":"+user.getIdUsuario()+":"+user.getIdSala());
-                        mensagem.Envia_Msg(new Mensagem(msg.getText(),user.getIdUsuario(),user.getIdSala()));
-                        System.out.println("LOLOLO"+msg.getText());
+                        this.msg.Envia_Msg(new Mensagem(msg.getText(),user.getIdUsuario(),user.getIdSala()));
                         msg.setLayoutX(Aconversas.getLayoutX()+10);
-                        if(Aconversas.getChildren().size() != 0){
+                        if(!Aconversas.getChildren().isEmpty()){
                         msg.setLayoutY(Aconversas.getChildren().get(Aconversas.getChildren().size()-1).getLayoutY()+20);
                         
                         }else{
                             msg.setLayoutY(Aconversas.getLayoutY()+20);
                         }
-                        System.out.println(msg.getLayoutX());
-                        System.out.println(msg.getLayoutY());
                         Aconversas.getChildren().add(msg);
                     }
 
                 } catch (IOException | ExcecaoPersistencia ex) {
-                    Logger.getLogger(Cliente1.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("ID 08");
+                    System.out.println(ex.getMessage());
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Cliente1.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("ID 09");
+                    System.out.println(ex.getMessage());
                 }
             }
         }
@@ -155,9 +149,7 @@ public class Cliente1 {
         sair.setOnMouseClicked(((event -> {
             try {
                 gerarNotificacao("Obrigado por usar nosso Software", "Volte Sempre, " + login + "!");
-                PersisteUsuario usr = new PersisteUsuario();
                 if (usr.getUserLogin(login, null) != null) {
-                    PersisteSala sala = new PersisteSala();
                     Usuario aux = usr.getUserLogin(login, null);
                     usr.excluir(login);
                     if (usr.listarUsuarioSala(aux.getIdSala()).isEmpty()) {
@@ -166,7 +158,8 @@ public class Cliente1 {
                 }
                 System.exit(0);
             } catch (ExcecaoPersistencia ex) {
-                Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("ID 10");
+                System.out.println(ex.getMessage());
             }
         })));
 
@@ -187,8 +180,6 @@ public class Cliente1 {
                         notificar.setText("Máximo de 15 caracteres");
                     } else {
                         try {
-                            PersisteUsuario usr = new PersisteUsuario();
-                            PersisteSala sala = new PersisteSala();
                             sala.cadastrar(new Sala(nomeSala));
                             Usuario aux = new Usuario(login, null, true, sala.getSala(nomeSala).getIdSala());
                             usr.cadastrar(aux);
@@ -200,12 +191,14 @@ public class Cliente1 {
                                 titulo.setStyle("-fx-font-size: 16");
                             }
                         } catch (ExcecaoPersistencia ex) {
-                            Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+                            System.out.println("ID 11");
+                            System.out.println(ex.getMessage());
                         }
                     }
                 })));
 
             } catch (IOException ex) {
+                System.out.println("ID 05");
                 System.out.println(ex.getMessage());
             }
 
@@ -218,8 +211,6 @@ public class Cliente1 {
         AnchorPane painelParticipantes = (AnchorPane) ((ScrollPane) ((TitledPane) (((AnchorPane) ((SplitPane) (((AnchorPane) ((SplitPane) (((AnchorPane) painel.getItems().get(0))
                 .getChildren().get(0))).getItems().get(0)).getChildren().get(0))).getItems().get(1)).getChildren().get(0))).getContent()).getContent();
 
-        PersisteSala sala = new PersisteSala();
-        PersisteUsuario usuario = new PersisteUsuario();
 
         double x = painelSalas.getLayoutX() + 20;
         double y = painelSalas.getLayoutY() + 10;
@@ -227,7 +218,7 @@ public class Cliente1 {
         ToggleGroup grupo = new ToggleGroup();
 
         for (int i = 0; i < salasDisponiveis.size(); i++) {
-            if (usuario.listarUsuarioSala(salasDisponiveis.get(i).getIdSala()).isEmpty()) {
+            if (usr.listarUsuarioSala(salasDisponiveis.get(i).getIdSala()).isEmpty()) {
                 sala.excluir(salasDisponiveis.get(i).getNomeSala());
             } else {
                 RadioButton r = new RadioButton(salasDisponiveis.get(i).getNomeSala());
@@ -238,18 +229,22 @@ public class Cliente1 {
                     @Override
                     public void handle(ActionEvent event) {
                         try {
-                            if (new PersisteUsuario().getUserLogin(login, null) == null) {
-                                new PersisteUsuario().cadastrar(new Usuario(login, null, false, new PersisteSala().getSala(r.getText()).getIdSala()));
+                            if (usr.getUserLogin(login, null) == null) {
+                                usr.cadastrar(new Usuario(login, null, false, sala.getSala(r.getText()).getIdSala()));
                             }
-                            ArrayList<Usuario> usuarios = new PersisteUsuario().listarUsuarioSala(new PersisteSala().getSala(r.getText()).getIdSala());
-                            ArrayList<Mensagem> mensagens = new PersisteMsg().Mostra_msg(new PersisteSala().getSala(r.getText()).getIdSala());
+                            ArrayList<Usuario> usuarios = usr.listarUsuarioSala(sala.getSala(r.getText()).getIdSala());
+                            ArrayList<Mensagem> mensagens = msg.Mostra_msg(sala.getSala(r.getText()).getIdSala());
                             preencherListaUsuarios(usuarios, painelParticipantes);
                              AnchorPane Aconversas = (AnchorPane) ((TitledPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) (((AnchorPane) (((AnchorPane) (((AnchorPane) (painelPrincipal
                                 .getChildren().get(0))).getChildren().get(0))).getChildren().get(0)))
                                 .getChildren().get(0))).getItems().get(1)).getChildren().get(0)).getItems().get(0)).getChildren().get(0)).getContent();
 
                             preencherListaMensagem(mensagens, Aconversas);
+                            escritor.writeObject(Comandos.LISTA_USUARIOS);
                         } catch (ExcecaoPersistencia ex) {
+                            System.out.println("ID 12");
+                            System.out.println(ex.getMessage());
+                        } catch (IOException ex) {
                             Logger.getLogger(Cliente1.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
@@ -264,11 +259,9 @@ public class Cliente1 {
 
     protected void iniciarEscritor(String login, AnchorPane painelPrincipal) throws IOException, ExcecaoPersistencia {//ActionOnClicked do botao enviar mensagem
 
-        //A1A1A1S1A2S1A2_BotaoEnviar
         carregarTelaChat(login, painelPrincipal);
         AnchorPane novaTela = (AnchorPane) painelPrincipal.getChildren().get(0);
 
-//Button enviar
         TextArea mensagem = (TextArea) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((AnchorPane) novaTela.getChildren().get(0))
                 .getChildren().get(0)).getChildren().get(0)).getItems().get(1)).getChildren().get(0)).getItems().get(1)).getChildren().get(1);
         if (mensagem.getText().isEmpty()) {
@@ -291,23 +284,6 @@ public class Cliente1 {
                     }
                 }
             }
-            PersisteMsg msg = new PersisteMsg();
-            PersisteUsuario usr = new PersisteUsuario();
-            Usuario usuario = usr.getUserLogin(login, null);
-            msg.Envia_Msg(new Mensagem(mensagem.getText(), usuario.getIdUsuario(), usuario.getIdSala()));
-            //Object usuario = liUsarios.getSelectedValue();
-            if (usuario != null) {
-                try {
-                    escritor.writeObject(Comandos.MENSAGEM + usuario.getNomeUsuario());
-                    escritor.writeObject(mensagem.getText());
-                    mensagem.setText(null);
-                } catch (IOException ex) {
-                    Logger.getLogger(Cliente1.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Selecione um usuario");
-                return;
-            }
         }
     }
 
@@ -319,9 +295,11 @@ public class Cliente1 {
             escritor = new ObjectOutputStream(cliente.getOutputStream());
             leitor = new ObjectInputStream(cliente.getInputStream());
         } catch (UnknownHostException e) {
+            System.out.println("ID 06");
             System.out.println("o endereço passado é inválido");
             e.printStackTrace();
         } catch (IOException e) {
+            System.out.println("ID 07");
             System.out.println("o servidor pode estar fora ar");
             e.printStackTrace();
         }
@@ -351,8 +329,10 @@ public class Cliente1 {
             sysTray.add(tray);
             tray.displayMessage(titulo, subTitulo, TrayIcon.MessageType.INFO);
         } catch (AWTException | FileNotFoundException e) {
+            System.out.println("ID 01");
             System.out.println(e.getMessage());
         } catch (IOException ex) {
+            System.out.println("ID 02");
             System.out.println(ex.getMessage());
         }
 
@@ -360,7 +340,6 @@ public class Cliente1 {
 
     protected int inicarLeitor(String login, AnchorPane painelPrincipal) throws IOException {
         this.painelPrincipal = painelPrincipal;
-// lendo mensagens do servidor
         try {
             while (true) {
                 String mensagem = leitor.readObject().toString();//Comandos::Login
@@ -375,10 +354,7 @@ public class Cliente1 {
                             .getChildren().get(0)).getItems().get(0)).getChildren().get(0)).getItems().get(1))
                             .getChildren().get(0)).getContent()).getContent());
                     ArrayList<Usuario> usuarios = (ArrayList<Usuario>) leitor.readObject();
-                    System.out.println("SIZE: "+usuarios.size());
-                    for(int i=0; i<usuarios.size();i++){
-                        System.out.println(usuarios.get(i).getNomeUsuario());
-                    }
+                    
                     preencherListaUsuarios(usuarios, painelParticipantes);
                 } else if (mensagem.equals(Comandos.LOGIN)) {
                     escritor.writeObject(login);
@@ -390,18 +366,17 @@ public class Cliente1 {
                 } else {
                     JOptionPane.showMessageDialog(null, mensagem);
                     break;
+                    
                 }
             }
 
         } catch (IOException e) {
+            System.out.println("ID 03");
             System.out.println("impossivel ler a mensagem do servidor" + e.getMessage());
         } catch (ClassNotFoundException ex) {
+            System.out.println("ID 04");
             System.out.println(ex.getMessage());
         }
         return 0;
-    }
-
-    protected DefaultListModel getListaUsuarios() {
-        return (DefaultListModel) liUsarios.getModel();
     }
 }

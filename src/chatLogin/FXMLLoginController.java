@@ -1,13 +1,6 @@
 package chatLogin;
 
 import Domain.ExcecaoPersistencia;
-import java.awt.AWTException;
-import java.awt.SystemTray;
-import java.awt.TrayIcon;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,14 +11,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
-import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
  *
  * @author M
  */
-public class FXMLLoginController implements Initializable {
+public class FXMLLoginController implements Initializable,java.io.Serializable {
 
     @FXML
     TextArea nomeUsuario;
@@ -37,48 +29,38 @@ public class FXMLLoginController implements Initializable {
     Label erroLogar;
     private String login;
     private String nomeSala;
-
+    private Cliente1 cliente;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         nomeUsuario.setFocusTraversable(false);
+        cliente = new Cliente1();
+        
+        
     }
-
-    private void gerarNotificacao(String titulo, String subTitulo) {
-        BufferedImage trayImage = null;
-        File a = new File("icon.png");
-        String path = "";
-        path = a.getAbsolutePath().replace('\\', '/');
-
-        String[] aux = path.split("/");
-        path = "";
-        for (int i = 0; i < aux.length - 1; i++) {
-            path += aux[i] + "/";
+    private class AtualizarUsuarios extends Thread{
+        public AtualizarUsuarios(){
+            this.setName("AtualizadorDeClientes");
+            start();
         }
-        try {
-            trayImage = ImageIO.read(new FileInputStream(new File(path + "icones/icon.png")));
-            TrayIcon tray = new TrayIcon(trayImage);
-            SystemTray sysTray = SystemTray.getSystemTray();
-            tray.setImageAutoSize(true);
-            sysTray.add(tray);
-            tray.displayMessage(titulo, subTitulo, TrayIcon.MessageType.INFO);
-        } catch (AWTException | FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        @Override
+        public void run(){
+            while(true){
+                // cliente.atualizarListaUsuarios();
+                System.out.println("oi");
+            }
         }
-
     }
 
     @FXML
     protected void fazerLogin(ActionEvent e) throws IOException, ExcecaoPersistencia {
-
-        Cliente1 cliente = new Cliente1();
+        
         cliente.iniciarChat();
         login = ((TextArea) painelPrincipal.getChildren().get(2)).getText();
         if (cliente.inicarLeitor(login, painelPrincipal) != -1) {
             cliente.iniciarEscritor(login, painelPrincipal);
         }
-
+        new AtualizarUsuarios();
+        
     }
 
 }

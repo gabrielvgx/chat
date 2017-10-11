@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Servidor1 {
+public class Servidor1 implements java.io.Serializable{
 	public static void main(String[] args) {
 		
 		ServerSocket servidor = null;
