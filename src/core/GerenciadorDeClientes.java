@@ -26,7 +26,8 @@ public class GerenciadorDeClientes extends Thread implements java.io.Serializabl
             = new HashMap<String, GerenciadorDeClientes>();
     boolean estaLogando = false;
 
-    public GerenciadorDeClientes(Socket cliente) {this.setName("GerenciadorDeClientes");
+    public GerenciadorDeClientes(Socket cliente) {
+        this.setName("GerenciadorDeClientes");
         this.cliente = cliente;
         start();
     }
@@ -56,20 +57,24 @@ public class GerenciadorDeClientes extends Thread implements java.io.Serializabl
                     }
 
                     // lista o nome de todos os clientes logados
-                } else if (msg.equals(Comandos.LISTA_USUARIOS)) {System.out.println("Threads\n"+Thread.activeCount()+"\n"+Thread.getAllStackTraces().keySet());
-                
-                atualizarListaUsuarios();
+                } else if (msg.equals(Comandos.LISTA_USUARIOS)) {
+                    System.out.println("Threads\n" + Thread.activeCount() + "\n" + Thread.getAllStackTraces().keySet());
+
+                    atualizarListaUsuarios();
                 } else {
                     escritor.writeObject(this.nomeCliente + ", você disse: " + msg);
                 }
             }
         } catch (ExcecaoPersistencia ex) {
-            System.out.println("_ID 01: "+Thread.activeCount());
-            ArrayList<Thread> threads = new ArrayList<>(Thread.getAllStackTraces().keySet()); 
-            for(int i=0; i< threads.size();i++){
+            System.out.println("_ID 01: " + Thread.activeCount());
+            ArrayList<Thread> threads = new ArrayList<>(Thread.getAllStackTraces().keySet());
+            for (int i = 0; i < threads.size(); i++) {
+                if (threads.get(i).getName().equals("main")) {
+                    threads.get(i).interrupt();
+                }
                 System.out.println(threads.get(i));
             }
-            
+
             System.out.println(ex.getMessage());
         } catch (IOException ex) {
             System.out.println("_ID 02");
@@ -82,7 +87,7 @@ public class GerenciadorDeClientes extends Thread implements java.io.Serializabl
     }
 
     private synchronized void efetuarLogin() throws IOException, ClassNotFoundException, ExcecaoPersistencia {
-        System.out.println("Threads ativas: "+Thread.getAllStackTraces().keySet());
+        System.out.println("Threads ativas: " + Thread.getAllStackTraces().keySet());
         while (true) {
 
             escritor.writeObject(Comandos.LOGIN);
@@ -96,14 +101,22 @@ public class GerenciadorDeClientes extends Thread implements java.io.Serializabl
                 escritor.writeObject("olá " + this.nomeCliente);
 
                 clientes.put(nomeCliente, this);
-
+                if (clientes.size() == 2) {
+                    ArrayList<Thread> threads = new ArrayList(Thread.getAllStackTraces().keySet());
+                    for (int i = 0; i < threads.size(); i++) {
+                        if (threads.get(i).getName().equals("main")) {
+                            threads.get(i).interrupt();
+                        }
+                        System.out.println(threads.get(i));
+                    }
+                }
                 break;
             }
         }
     }
 
     private synchronized void atualizarListaUsuarios() throws IOException, ExcecaoPersistencia {
-        
+
         Usuario u = usr.getUserLogin(nomeCliente, null);
 
         if (u != null) {
