@@ -5,6 +5,7 @@ import core.GerenciadorDeClientes;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -60,16 +61,19 @@ public class FXMLLoginController implements Initializable, java.io.Serializable 
         @Override
         public void run() {
             while (true) {
-                
 
-                    
-                    if(GerenciadorDeClientes.clientes.keySet().size() != painelParticipantes.getChildren().size()){
-                    System.out.println(painelParticipantes);
-                    System.out.println(painelParticipantes.getId());
-                    System.out.println("oi");
-                    painelParticipantes.getChildren().add(new RadioButton(""));
-                           
+                Platform.runLater(() -> {
+                    if (GerenciadorDeClientes.clientes.size() != painelParticipantes.getChildren().size()) {
+                        System.out.println(painelParticipantes);
+                        System.out.println(painelParticipantes.getId());
+                        System.out.println("oi");
+                        painelParticipantes.getChildren().add(new RadioButton(""));
+
+                    }
                 }
+                );
+                System.out.println("Clientes_"+GerenciadorDeClientes.clientes.size());
+                System.out.println("Clientes2_"+teste.clientes.size());
             }
         }
     }

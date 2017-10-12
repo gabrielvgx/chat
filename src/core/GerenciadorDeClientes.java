@@ -5,6 +5,7 @@ import Domain.Usuario;
 import Service.PersisteMsg;
 import Service.PersisteSala;
 import Service.PersisteUsuario;
+import chatLogin.teste;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -38,9 +39,9 @@ public class GerenciadorDeClientes extends Thread implements java.io.Serializabl
             leitor = new ObjectInputStream(cliente.getInputStream());
             escritor = new ObjectOutputStream(cliente.getOutputStream());
             System.out.println("cliente: " + cliente);
-            estaLogando = true;
+            
             efetuarLogin();
-            estaLogando = false;
+            System.out.println(clientes.size());
             String msg;
             while (true) {
                 msg = leitor.readObject().toString();
@@ -101,15 +102,7 @@ public class GerenciadorDeClientes extends Thread implements java.io.Serializabl
                 escritor.writeObject("olá " + this.nomeCliente);
 
                 clientes.put(nomeCliente, this);
-                if (clientes.size() == 2) {
-                    ArrayList<Thread> threads = new ArrayList(Thread.getAllStackTraces().keySet());
-                    for (int i = 0; i < threads.size(); i++) {
-                        if (threads.get(i).getName().equals("main")) {
-                            threads.get(i).interrupt();
-                        }
-                        System.out.println(threads.get(i));
-                    }
-                }
+                teste.clientes.put(nomeCliente, this);
                 break;
             }
         }
