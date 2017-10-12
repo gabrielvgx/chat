@@ -2,7 +2,9 @@ package chatLogin;
 
 import Domain.ExcecaoPersistencia;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -41,6 +43,7 @@ public class FXMLLoginController implements Initializable, java.io.Serializable 
     private Cliente1 cliente;
     private Socket socketCliente;
     private ObjectInputStream leitor;
+    private ObjectOutputStream escritor;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         nomeUsuario.setFocusTraversable(false);
@@ -95,8 +98,13 @@ public class FXMLLoginController implements Initializable, java.io.Serializable 
             cliente.iniciarEscritor(login, painelPrincipal);
         }
         System.out.println(">>>>");
-        leitor = new ObjectInputStream(socketCliente.getInputStream());
+        escritor = new ObjectOutputStream(socketCliente.getOutputStream());
+        escritor.flush();
+        InputStream i = socketCliente.getInputStream();
         System.out.println(">>><<<<<");
+        leitor = new ObjectInputStream(i);
+        
+        System.out.println(",.<><><>");
         new AtualizarUsuarios();
     }
 

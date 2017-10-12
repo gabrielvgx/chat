@@ -34,7 +34,7 @@ public class GerenciadorDeClientes extends Thread implements java.io.Serializabl
     }
 
     @Override
-    public synchronized void run() {
+    public void run() {
         try {
             leitor = new ObjectInputStream(cliente.getInputStream());
             escritor = new ObjectOutputStream(cliente.getOutputStream());
@@ -42,6 +42,7 @@ public class GerenciadorDeClientes extends Thread implements java.io.Serializabl
             
             efetuarLogin();
             escritor.writeInt(clientes.size());
+            escritor.flush();
             System.out.println(clientes.size());
             String msg;
             while (true) {
