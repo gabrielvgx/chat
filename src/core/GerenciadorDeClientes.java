@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GerenciadorDeClientes extends Thread implements java.io.Serializable {
+public class GerenciadorDeClientes extends Thread implements java.io.Serializable{
 
     private Socket cliente;
     private String nomeCliente;
@@ -41,6 +41,7 @@ public class GerenciadorDeClientes extends Thread implements java.io.Serializabl
             System.out.println("cliente: " + cliente);
             
             efetuarLogin();
+            escritor.writeInt(clientes.size());
             System.out.println(clientes.size());
             String msg;
             while (true) {
@@ -68,13 +69,7 @@ public class GerenciadorDeClientes extends Thread implements java.io.Serializabl
             }
         } catch (ExcecaoPersistencia ex) {
             System.out.println("_ID 01: " + Thread.activeCount());
-            ArrayList<Thread> threads = new ArrayList<>(Thread.getAllStackTraces().keySet());
-            for (int i = 0; i < threads.size(); i++) {
-                if (threads.get(i).getName().equals("main")) {
-                    threads.get(i).interrupt();
-                }
-                System.out.println(threads.get(i));
-            }
+           
 
             System.out.println(ex.getMessage());
         } catch (IOException ex) {

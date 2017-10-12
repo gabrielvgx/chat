@@ -287,13 +287,14 @@ public class Cliente1 implements java.io.Serializable{
         }
     }
 
-    public void iniciarChat() {//Continua na classe cliente
+    public Socket iniciarChat() {//Continua na classe cliente
 
         //Socket cliente = null;
         try {
             cliente = new Socket("127.0.0.1", 9999);
             escritor = new ObjectOutputStream(cliente.getOutputStream());
             leitor = new ObjectInputStream(cliente.getInputStream());
+            return cliente;
         } catch (UnknownHostException e) {
             System.out.println("ID 06");
             System.out.println("o endereço passado é inválido");
@@ -303,7 +304,7 @@ public class Cliente1 implements java.io.Serializable{
             System.out.println("o servidor pode estar fora ar");
             e.printStackTrace();
         }
-
+        return cliente;
     }
 
     protected void atualizarListaUsuarios() throws IOException {

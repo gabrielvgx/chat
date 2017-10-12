@@ -1,10 +1,13 @@
 package chatLogin;
 
 import Domain.ExcecaoPersistencia;
-import core.GerenciadorDeClientes;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,7 +39,8 @@ public class FXMLLoginController implements Initializable, java.io.Serializable 
     private String login;
     private String nomeSala;
     private Cliente1 cliente;
-
+    private Socket socketCliente;
+    private ObjectInputStream leitor;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         nomeUsuario.setFocusTraversable(false);
@@ -61,19 +65,23 @@ public class FXMLLoginController implements Initializable, java.io.Serializable 
         @Override
         public void run() {
             while (true) {
-
-                Platform.runLater(() -> {
-                    if (GerenciadorDeClientes.clientes.size() != painelParticipantes.getChildren().size()) {
-                        System.out.println(painelParticipantes);
-                        System.out.println(painelParticipantes.getId());
-                        System.out.println("oi");
-                        painelParticipantes.getChildren().add(new RadioButton(""));
-
+                try {
+                   // System.out.println("Socket: "+socketCliente);
+                int o = leitor.readInt();
+                    Platform.runLater(() -> {
+                        if (o != painelParticipantes.getChildren().size()) {
+                            System.out.println(painelParticipantes);
+                            System.out.println(painelParticipantes.getId());
+                            System.out.println("oi");
+                            painelParticipantes.getChildren().add(new RadioButton(""));
+                            
+                        }
                     }
+                    );
+                    System.out.println("Clientes_"+o);
+                } catch (IOException ex) {
+                    Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                );
-                System.out.println("Clientes_"+GerenciadorDeClientes.clientes.size());
-                System.out.println("Clientes2_"+teste.clientes.size());
             }
         }
     }
@@ -81,11 +89,14 @@ public class FXMLLoginController implements Initializable, java.io.Serializable 
     @FXML
     protected void fazerLogin(ActionEvent e) throws IOException, ExcecaoPersistencia {
 
-        cliente.iniciarChat();
+        socketCliente = cliente.iniciarChat();
         login = ((TextArea) painelPrincipal.getChildren().get(2)).getText();
         if (cliente.inicarLeitor(login, painelPrincipal) != -1) {
             cliente.iniciarEscritor(login, painelPrincipal);
         }
+        System.out.println(">>>>");
+        leitor = new ObjectInputStream(socketCliente.getInputStream());
+        System.out.println(">>><<<<<");
         new AtualizarUsuarios();
     }
 
