@@ -5,7 +5,6 @@ import Domain.Usuario;
 import Service.PersisteMsg;
 import Service.PersisteSala;
 import Service.PersisteUsuario;
-import chatLogin.teste;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -28,7 +27,6 @@ public class GerenciadorDeClientes extends Thread implements java.io.Serializabl
     boolean estaLogando = false;
 
     public GerenciadorDeClientes(Socket cliente) {
-        this.setName("GerenciadorDeClientes");
         this.cliente = cliente;
         start();
     }
@@ -38,12 +36,12 @@ public class GerenciadorDeClientes extends Thread implements java.io.Serializabl
         try {
             leitor = new ObjectInputStream(cliente.getInputStream());
             escritor = new ObjectOutputStream(cliente.getOutputStream());
-            System.out.println("cliente: " + cliente);
-            
+       
             efetuarLogin();
-            escritor.writeInt(clientes.size());
             escritor.flush();
-            System.out.println(clientes.size());
+            escritor.writeInt(clientes.size());
+
+            System.out.println("Servidor nClientes: "+clientes.size());
             String msg;
             while (true) {
                 msg = leitor.readObject().toString();
@@ -84,9 +82,7 @@ public class GerenciadorDeClientes extends Thread implements java.io.Serializabl
     }
 
     private synchronized void efetuarLogin() throws IOException, ClassNotFoundException, ExcecaoPersistencia {
-        System.out.println("Threads ativas: " + Thread.getAllStackTraces().keySet());
         while (true) {
-
             escritor.writeObject(Comandos.LOGIN);
             this.nomeCliente = leitor.readObject().toString();
             if (this.nomeCliente.equalsIgnoreCase("null") || this.nomeCliente.isEmpty()) {
@@ -96,9 +92,7 @@ public class GerenciadorDeClientes extends Thread implements java.io.Serializabl
             } else {
                 escritor.writeObject(Comandos.LOGIN_ACEITO);
                 escritor.writeObject("olá " + this.nomeCliente);
-
                 clientes.put(nomeCliente, this);
-                teste.clientes.put(nomeCliente, this);
                 break;
             }
         }

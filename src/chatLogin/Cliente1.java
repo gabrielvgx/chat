@@ -121,7 +121,7 @@ public class Cliente1 implements java.io.Serializable{
                                 .getChildren().get(0))).getChildren().get(0))).getChildren().get(0)))
                                 .getChildren().get(0))).getItems().get(1)).getChildren().get(0)).getItems().get(0)).getChildren().get(0)).getContent();
 
-                        Label msg = new Label(leitor.readObject().toString());
+                        Label msg = new Label(leitor.readObject().toString());System.out.println("label: "+msg.getText());
                         Usuario user = usr.getUserLogin(login, null);
                         this.msg.Envia_Msg(new Mensagem(msg.getText(),user.getIdUsuario(),user.getIdSala()));
                         msg.setLayoutX(Aconversas.getLayoutX()+10);
@@ -258,14 +258,17 @@ public class Cliente1 implements java.io.Serializable{
     }
 
     protected void iniciarEscritor(String login, AnchorPane painelPrincipal) throws IOException, ExcecaoPersistencia {//ActionOnClicked do botao enviar mensagem
-
         carregarTelaChat(login, painelPrincipal);
         AnchorPane novaTela = (AnchorPane) painelPrincipal.getChildren().get(0);
 
         TextArea mensagem = (TextArea) ((AnchorPane) ((SplitPane) ((AnchorPane) ((SplitPane) ((AnchorPane) ((AnchorPane) novaTela.getChildren().get(0))
                 .getChildren().get(0)).getChildren().get(0)).getItems().get(1)).getChildren().get(0)).getItems().get(1)).getChildren().get(1);
         if (mensagem.getText().isEmpty()) {
+            System.out.println("teste mensagem");
+            leitor.reset();
+            System.out.println("teste_: "+leitor.readInt());
             return;
+            
         }
         SplitPane s = (SplitPane) mensagem.getParent().getParent().getParent().getParent().getParent().getParent();
         AnchorPane terceiroPane = (AnchorPane) s.getParent();//A1A1_A1
@@ -285,16 +288,17 @@ public class Cliente1 implements java.io.Serializable{
                 }
             }
         }
+        
     }
 
-    public Socket iniciarChat() {//Continua na classe cliente
+    public ObjectInputStream iniciarChat() {//Continua na classe cliente
 
         //Socket cliente = null;
         try {
             cliente = new Socket("127.0.0.1", 9999);
             escritor = new ObjectOutputStream(cliente.getOutputStream());
             leitor = new ObjectInputStream(cliente.getInputStream());
-            return cliente;
+            return leitor;
         } catch (UnknownHostException e) {
             System.out.println("ID 06");
             System.out.println("o endereço passado é inválido");
@@ -304,7 +308,7 @@ public class Cliente1 implements java.io.Serializable{
             System.out.println("o servidor pode estar fora ar");
             e.printStackTrace();
         }
-        return cliente;
+        return leitor;
     }
 
     protected void atualizarListaUsuarios() throws IOException {
@@ -341,9 +345,11 @@ public class Cliente1 implements java.io.Serializable{
 
     protected int inicarLeitor(String login, AnchorPane painelPrincipal) throws IOException {
         this.painelPrincipal = painelPrincipal;
+        boolean flag = false;
         try {
-            while (true) {
+            while (!flag) {
                 String mensagem = leitor.readObject().toString();//Comandos::Login
+                System.out.println("Mensagem1: "+mensagem);
                 if (mensagem == null || mensagem.isEmpty()) {
                     continue;
                 }
@@ -366,7 +372,7 @@ public class Cliente1 implements java.io.Serializable{
 
                 } else {
                     JOptionPane.showMessageDialog(null, mensagem);
-                    break;
+                    flag = true;
                     
                 }
             }
